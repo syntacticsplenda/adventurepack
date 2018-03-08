@@ -1,6 +1,7 @@
 package brobotato.adventurepack;
 
 import brobotato.adventurepack.item.ModItems;
+import brobotato.adventurepack.proxy.ClientProxy;
 import brobotato.adventurepack.proxy.CommonProxy;
 import net.minecraft.item.Item;
 import net.minecraftforge.client.event.ModelRegistryEvent;
@@ -32,7 +33,7 @@ public class AdventurePack {
 
     @Mod.EventHandler
     public void init(FMLInitializationEvent event) {
-
+        proxy.init(event);
     }
 
     @Mod.EventHandler
