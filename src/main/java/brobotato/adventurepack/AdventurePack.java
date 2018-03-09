@@ -18,7 +18,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 public class AdventurePack {
     public static final String modId = "adventurepack";
     public static final String name = "Adventure Pack";
-    public static final String version = "1.0.0";
+    public static final String version = "1.1.0";
 
     @SidedProxy(serverSide = "brobotato.adventurepack.proxy.CommonProxy", clientSide = "brobotato.adventurepack.proxy.ClientProxy")
     public static CommonProxy proxy;
