@@ -1,14 +1,14 @@
 [
 {
   "modid": "adventurepack",
-  "name": "Adventure Pack",
+  "name": "Adventure Tools",
   "description": "Adds adventure themed items aimed at making the game less tedious.",
   "version": "${version}",
   "mcversion": "${mcversion}",
   "url": "",
   "updateUrl": "",
   "authorList": ["Brobotato"],
-  "credits": "",
+  "credits": "mcjty",
   "logoFile": "assets/adventurepack/textures/adventurepack.png",
   "screenshots": [],
   "dependencies": []

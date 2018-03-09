@@ -10,7 +10,9 @@ import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
+import net.minecraftforge.client.event.RenderWorldLastEvent;
 import org.lwjgl.opengl.GL11;
+import brobotato.adventurepack.config.ModConfig;
 
 import java.util.ArrayList;
 
@@ -22,33 +24,33 @@ public class ItemLantern extends ItemBase {
         this.setMaxStackSize(1);
     }
 
-    public static void highlightHandler() {
+    public static void highlightHandler(RenderWorldLastEvent evt) {
         Minecraft mc = Minecraft.getMinecraft();
 
         EntityPlayerSP player = mc.player;
         if (player.inventory.hasItemStack(new ItemStack(ModItems.lantern))) {
             ArrayList<BlockPos> nearbyOres = nearbyOre();
             for (BlockPos orePos : nearbyOres) {
-                highlightBlock(orePos);
+                highlightBlock(orePos, evt.getPartialTicks());
             }
         }
     }
 
     // wouldn't have been possible without mcjtylib's highlight functions, thank you
-    public static void highlightBlock(BlockPos hiPos) {
+    public static void highlightBlock(BlockPos hiPos, float ticks) {
         Minecraft mc = Minecraft.getMinecraft();
 
         EntityPlayerSP player = mc.player;
 
-        double doubleX = player.lastTickPosX + (player.posX - player.lastTickPosX)/5;
-        double doubleY = player.lastTickPosY + (player.posY - player.lastTickPosY)/5;
-        double doubleZ = player.lastTickPosZ + (player.posZ - player.lastTickPosZ)/5;
+        double doubleX = player.lastTickPosX + (player.posX - player.lastTickPosX) * ticks;
+        double doubleY = player.lastTickPosY + (player.posY - player.lastTickPosY) * ticks;
+        double doubleZ = player.lastTickPosZ + (player.posZ - player.lastTickPosZ) * ticks;
 
         GlStateManager.pushMatrix();
 
-        float r = 0.937f;
-        float g = 0.824f;
-        float b = 0.243f;
+        float r = 0.8f;
+        float g = 0.0f;
+        float b = 0.98f;
         float a = 0.5f;
 
         GlStateManager.color(r, g, b);
@@ -114,9 +116,11 @@ public class ItemLantern extends ItemBase {
         Minecraft mc = Minecraft.getMinecraft();
         EntityPlayerSP player = mc.player;
         BlockPos currentPos = player.getPosition();
-        for (int x = currentPos.getX() - 4; x < currentPos.getX() + 4; x++) {
-            for (int y = currentPos.getY() - 4; y < currentPos.getY() + 4; y++) {
-                for (int z = currentPos.getZ() - 4; z < currentPos.getZ() + 4; z++) {
+        int radius = ModConfig.client.lanternRadius;
+        if (radius == 0) radius = 4;
+        for (int x = currentPos.getX() - radius; x < currentPos.getX() + radius; x++) {
+            for (int y = currentPos.getY() - radius; y < currentPos.getY() + radius; y++) {
+                for (int z = currentPos.getZ() - radius; z < currentPos.getZ() + radius; z++) {
                     Block testBlock = mc.world.getBlockState(new BlockPos(x, y, z)).getBlock();
                     String name = testBlock.getUnlocalizedName();
                     if (name.toLowerCase().contains("ore") || name.toLowerCase().equals("tile.netherquartz"))

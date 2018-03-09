@@ -1,3 +1,8 @@
+#items
 
 item.escape_rope.name=Escape Rope
 item.lantern.name=Ender Lantern
+
+#config
+
+adventurepack.config = Adventure Tools Config

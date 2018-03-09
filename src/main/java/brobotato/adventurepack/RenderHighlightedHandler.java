@@ -8,6 +8,6 @@ public class RenderHighlightedHandler {
 
     @SubscribeEvent
     public void renderWorldLastEvent(RenderWorldLastEvent evt) {
-        ItemLantern.highlightHandler();
+        ItemLantern.highlightHandler(evt);
     }
 }

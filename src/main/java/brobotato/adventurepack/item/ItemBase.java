@@ -9,18 +9,19 @@ import net.minecraft.util.ResourceLocation;
 public abstract class ItemBase extends Item {
 
     protected String name;
-    public ItemBase(String name){
+
+    public ItemBase(String name) {
         this.name = name;
         setUnlocalizedName(name);
-        setRegistryName(new ResourceLocation(AdventurePack.modId,name));
+        setRegistryName(new ResourceLocation(AdventurePack.modId, name));
     }
 
-    public void registerItemModel(){
-        AdventurePack.proxy.registerItemRenderer(this,0,name);
+    public void registerItemModel() {
+        AdventurePack.proxy.registerItemRenderer(this, 0, name);
     }
 
     @Override
-    public ItemBase setCreativeTab(CreativeTabs tab){
+    public ItemBase setCreativeTab(CreativeTabs tab) {
         super.setCreativeTab(tab);
         return this;
     }

@@ -11,6 +11,8 @@ import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import brobotato.adventurepack.config.ModConfig;
+import net.minecraftforge.fml.common.Mod;
 
 import javax.annotation.Nonnull;
 
@@ -18,6 +20,7 @@ import javax.annotation.Nonnull;
 public class ItemRope extends ItemBase {
 
     BlockPos lastOpenPos = null;
+    int dimension;
 
     public ItemRope() {
         super("escape_rope");
@@ -28,6 +31,14 @@ public class ItemRope extends ItemBase {
     public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, EnumHand hand) {
         ItemStack stack = player.getHeldItem(hand);
         player.setActiveHand(hand);
+        if (ModConfig.client.instantRope) {
+            BlockPos currentPos = player.getPosition();
+            if (!world.isRemote && !world.canBlockSeeSky(currentPos) && (world.provider.getDimension() == dimension)) {
+                player.setPositionAndUpdate(lastOpenPos.getX(), lastOpenPos.getY(), lastOpenPos.getZ());
+                if (!player.capabilities.isCreativeMode)
+                    stack.shrink(1);
+            }
+        }
         return ActionResult.newResult(EnumActionResult.SUCCESS, stack);
     }
 
@@ -39,7 +50,8 @@ public class ItemRope extends ItemBase {
 
     @Override
     public int getMaxItemUseDuration(ItemStack stack) {
-        return 72000;
+        if(!ModConfig.client.instantRope) return 72000;
+        else return 0;
     }
 
     @Override
@@ -59,9 +71,9 @@ public class ItemRope extends ItemBase {
             f = 6f;
         }
 
-        if (f == 6f) {
+        if (f == 6f && !ModConfig.client.instantRope) {
             BlockPos currentPos = entity.getPosition();
-            if (!world.isRemote && !world.canBlockSeeSky(currentPos)) {
+            if (!world.isRemote && !world.canBlockSeeSky(currentPos) && (world.provider.getDimension() == dimension)) {
                 entity.setPositionAndUpdate(lastOpenPos.getX(), lastOpenPos.getY(), lastOpenPos.getZ());
                 EntityPlayer playerIn = (EntityPlayer) entity;
                 if (!playerIn.capabilities.isCreativeMode)
@@ -76,6 +88,7 @@ public class ItemRope extends ItemBase {
             BlockPos pos = new BlockPos(entity.posX, entity.posY, entity.posZ);
             if (world.canBlockSeeSky(pos) && entity.onGround) {
                 lastOpenPos = pos;
+                dimension = world.provider.getDimension();
             }
         }
     }
