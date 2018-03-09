@@ -39,15 +39,16 @@ public class ItemLantern extends ItemBase {
         Minecraft mc = Minecraft.getMinecraft();
 
         EntityPlayerSP player = mc.player;
-        double doubleX = player.lastTickPosX;
-        double doubleY = player.lastTickPosY;
-        double doubleZ = player.lastTickPosZ;
+
+        double doubleX = player.lastTickPosX + (player.posX - player.lastTickPosX)/5;
+        double doubleY = player.lastTickPosY + (player.posY - player.lastTickPosY)/5;
+        double doubleZ = player.lastTickPosZ + (player.posZ - player.lastTickPosZ)/5;
 
         GlStateManager.pushMatrix();
 
-        float r = 1.0f;
-        float g = 1.0f;
-        float b = 1.0f;
+        float r = 0.937f;
+        float g = 0.824f;
+        float b = 0.243f;
         float a = 0.5f;
 
         GlStateManager.color(r, g, b);
@@ -67,32 +68,40 @@ public class ItemLantern extends ItemBase {
         buffer.begin(GL11.GL_LINES, DefaultVertexFormats.POSITION_COLOR);
 
         buffer.pos(mx, my, mz).color(r, g, b, a).endVertex();
+        buffer.pos(mx, my, mz + 1).color(r, g, b, a).endVertex();
+
         buffer.pos(mx + 1, my, mz).color(r, g, b, a).endVertex();
+        buffer.pos(mx + 1, my, mz + 1).color(r, g, b, a).endVertex();
+
+        buffer.pos(mx, my, mz).color(r, g, b, a).endVertex();
+        buffer.pos(mx + 1, my, mz).color(r, g, b, a).endVertex();
+
+        buffer.pos(mx, my, mz + 1).color(r, g, b, a).endVertex();
+        buffer.pos(mx + 1, my, mz + 1).color(r, g, b, a).endVertex();
+
+        buffer.pos(mx, my + 1, mz).color(r, g, b, a).endVertex();
+        buffer.pos(mx, my + 1, mz + 1).color(r, g, b, a).endVertex();
+
+        buffer.pos(mx + 1, my + 1, mz).color(r, g, b, a).endVertex();
+        buffer.pos(mx + 1, my + 1, mz + 1).color(r, g, b, a).endVertex();
+
+        buffer.pos(mx, my + 1, mz).color(r, g, b, a).endVertex();
+        buffer.pos(mx + 1, my + 1, mz).color(r, g, b, a).endVertex();
+
+        buffer.pos(mx, my + 1, mz + 1).color(r, g, b, a).endVertex();
+        buffer.pos(mx + 1, my + 1, mz + 1).color(r, g, b, a).endVertex();
+
         buffer.pos(mx, my, mz).color(r, g, b, a).endVertex();
         buffer.pos(mx, my + 1, mz).color(r, g, b, a).endVertex();
-        buffer.pos(mx, my, mz).color(r, g, b, a).endVertex();
-        buffer.pos(mx, my, mz + 1).color(r, g, b, a).endVertex();
-        buffer.pos(mx + 1, my + 1, mz + 1).color(r, g, b, a).endVertex();
-        buffer.pos(mx, my + 1, mz + 1).color(r, g, b, a).endVertex();
-        buffer.pos(mx + 1, my + 1, mz + 1).color(r, g, b, a).endVertex();
-        buffer.pos(mx + 1, my, mz + 1).color(r, g, b, a).endVertex();
-        buffer.pos(mx + 1, my + 1, mz + 1).color(r, g, b, a).endVertex();
-        buffer.pos(mx + 1, my + 1, mz).color(r, g, b, a).endVertex();
-
-        buffer.pos(mx, my + 1, mz).color(r, g, b, a).endVertex();
-        buffer.pos(mx, my + 1, mz + 1).color(r, g, b, a).endVertex();
-        buffer.pos(mx, my + 1, mz).color(r, g, b, a).endVertex();
-        buffer.pos(mx + 1, my + 1, mz).color(r, g, b, a).endVertex();
 
         buffer.pos(mx + 1, my, mz).color(r, g, b, a).endVertex();
-        buffer.pos(mx + 1, my, mz + 1).color(r, g, b, a).endVertex();
-        buffer.pos(mx + 1, my, mz).color(r, g, b, a).endVertex();
         buffer.pos(mx + 1, my + 1, mz).color(r, g, b, a).endVertex();
 
         buffer.pos(mx, my, mz + 1).color(r, g, b, a).endVertex();
-        buffer.pos(mx + 1, my, mz + 1).color(r, g, b, a).endVertex();
-        buffer.pos(mx, my, mz + 1).color(r, g, b, a).endVertex();
         buffer.pos(mx, my + 1, mz + 1).color(r, g, b, a).endVertex();
+
+        buffer.pos(mx + 1, my, mz + 1).color(r, g, b, a).endVertex();
+        buffer.pos(mx + 1, my + 1, mz + 1).color(r, g, b, a).endVertex();
 
         tessellator.draw();
 
@@ -110,7 +119,8 @@ public class ItemLantern extends ItemBase {
                 for (int z = currentPos.getZ() - 4; z < currentPos.getZ() + 4; z++) {
                     Block testBlock = mc.world.getBlockState(new BlockPos(x, y, z)).getBlock();
                     String name = testBlock.getUnlocalizedName();
-                    if (name.toLowerCase().contains("ore")) oreList.add(new BlockPos(x, y, z));
+                    if (name.toLowerCase().contains("ore") || name.toLowerCase().equals("tile.netherquartz"))
+                        oreList.add(new BlockPos(x, y, z));
                 }
             }
         }
