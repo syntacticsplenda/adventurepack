@@ -1,5 +1,6 @@
 package brobotato.adventurepack.item;
 
+import brobotato.adventurepack.config.ModConfig;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
@@ -12,7 +13,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
 import org.lwjgl.opengl.GL11;
-import brobotato.adventurepack.config.ModConfig;
 
 import java.util.ArrayList;
 

@@ -15,6 +15,10 @@ public class ModelMiningHelm extends ModelBiped {
         this.setTextureOffset("Helmet.Piece2",0,43);
         this.setTextureOffset("Helmet.Piece3",0,55);
         this.setTextureOffset("Helmet.Piece4",40,32);
+        this.setTextureOffset("Helmet.Piece5",40,35);
+        this.setTextureOffset("Helmet.Piece6",40,35);
+        this.setTextureOffset("Helmet.Piece7",40,45);
+        this.setTextureOffset("Helmet.Piece8",40,45);
 
         MiningHelmet = new ModelRenderer(this, "Helmet");
 
@@ -28,6 +32,10 @@ public class ModelMiningHelm extends ModelBiped {
         MiningHelmet.addBox("Piece2",-4F, -4F, -4F, 8, 4, 8);
         MiningHelmet.addBox("Piece3",-3F, -5F, -4F, 6, 1, 8);
         MiningHelmet.addBox("Piece4",-1F, -2F, -5F, 2, 2, 1);
+        MiningHelmet.addBox("Piece5", 3.5F, -2F, -4F, 1, 2, 8);
+        MiningHelmet.addBox("Piece6", -4.5F, -2F, -4F, 1, 2, 8);
+        MiningHelmet.addBox("Piece7", -4.5F, -2F, 3.5F, 9, 2, 1);
+        MiningHelmet.addBox("Piece8", -4.5F, -2F, -4.5F, 9, 2, 1);
         MiningHelmet.setTextureSize(textureWidth,textureHeight);
 
         this.bipedHead.addChild(MiningHelmet);

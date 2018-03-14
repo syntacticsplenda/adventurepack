@@ -1,9 +1,8 @@
 package brobotato.adventurepack.item.armor;
 
 
-import net.minecraft.inventory.EntityEquipmentSlot;
-import net.minecraft.item.Item;
 import brobotato.adventurepack.AdventurePack;
+import net.minecraft.inventory.EntityEquipmentSlot;
 
 public class ItemArmor extends net.minecraft.item.ItemArmor {
     private String name;

@@ -2,16 +2,13 @@ package brobotato.adventurepack.proxy;
 
 import brobotato.adventurepack.AdventurePack;
 import brobotato.adventurepack.RenderHighlightedHandler;
-import brobotato.adventurepack.item.ItemLantern;
 import brobotato.adventurepack.item.armor.ModelMiningHelm;
 import net.minecraft.client.model.ModelBiped;
-import net.minecraftforge.common.MinecraftForge;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;
-import net.minecraftforge.client.event.RenderWorldLastEvent;
 import net.minecraftforge.client.model.ModelLoader;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 public class ClientProxy extends CommonProxy {
 

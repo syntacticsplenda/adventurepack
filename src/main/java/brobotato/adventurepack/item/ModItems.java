@@ -1,10 +1,10 @@
 package brobotato.adventurepack.item;
 
 
+import brobotato.adventurepack.config.ModConfig;
 import brobotato.adventurepack.item.armor.ItemMiningHelm;
 import net.minecraft.item.Item;
 import net.minecraftforge.registries.IForgeRegistry;
-import brobotato.adventurepack.config.ModConfig;
 
 public class ModItems {
     public static ItemRope escapeRope = new ItemRope();
