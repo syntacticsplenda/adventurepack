@@ -6,6 +6,7 @@ import brobotato.adventurepack.config.ModConfig;
 import brobotato.adventurepack.proxy.ClientProxy;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelBiped;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.SoundEvents;
@@ -13,6 +14,7 @@ import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.EnumHelper;
 import net.minecraftforge.fml.relauncher.Side;
@@ -20,7 +22,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class ItemMiningHelm extends ItemArmor {
 
-    RayTraceResult lookPos = null, lastLookPos;
+    RayTraceResult lookPos = null;
 
     public static final ItemArmor.ArmorMaterial miningArmorMaterial = EnumHelper.addArmorMaterial("MINING",
             AdventurePack.modId + ":mining", 15, new int[]{2, 0, 0, 0}, 9,
@@ -57,19 +59,27 @@ public class ItemMiningHelm extends ItemArmor {
         return new BlockPos(x, y, z);
     }
 
-    public int getRayTraceDistance(RayTraceResult rayTrace, EntityPlayer playerIn) {
-        return (int) Math.sqrt(Math.pow(playerIn.posX - rayTrace.getBlockPos().getX(), 2)
-                + Math.pow(playerIn.posY - rayTrace.getBlockPos().getY(), 2)
-                + Math.pow(playerIn.posZ - rayTrace.getBlockPos().getZ(), 2));
+    public RayTraceResult rayTrace(double blockReachDistance, float partialTicks, EntityPlayer player) {
+        Vec3d vec3d = player.getPositionEyes(partialTicks);
+        Vec3d vec3d1 = player.getLook(partialTicks);
+        Vec3d vec3d2 = vec3d.addVector(vec3d1.x * blockReachDistance, vec3d1.y * blockReachDistance, vec3d1.z * blockReachDistance);
+        return player.world.rayTraceBlocks(vec3d, vec3d2, false, true, true);
     }
 
     @Override
     public void onArmorTick(World world, EntityPlayer player, ItemStack itemStack) {
-        System.currentTimeMillis();
-        lookPos = player.rayTrace(15, Minecraft.getMinecraft().getRenderPartialTicks());
-        if (getRayTraceDistance(lookPos, player) <= ModConfig.client.helmetRange)
-            world.setBlockState(getRayTraceBefore(lookPos), new BlockLight().getDefaultState());
+        if (!world.isRemote) {
+            lookPos = rayTrace(15, 1.0f, player);
+            if (lookPos == null) return;
+            double vecDistance = Math.pow(lookPos.hitVec.squareDistanceTo(player.posX, player.posY, player.posZ), 0.5);
+            if (vecDistance <= 15) {
+                if (world.getBlockState(getRayTraceBefore(lookPos)).getBlock().getUnlocalizedName().equals("tile.air")) {
+                    world.setBlockState(getRayTraceBefore(lookPos), new BlockLight().getDefaultState());
+                }
+            }
+        }
     }
+
 
     @Override
     @SideOnly(Side.CLIENT)

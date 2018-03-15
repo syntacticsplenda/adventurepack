@@ -24,6 +24,8 @@ public class ModConfig {
         public int lanternRadius = 0;
         @Config.Comment("The range of the Mining Helmet. 0 = light is disabled. 15 max")
         public int helmetRange = 15;
+        @Config.Comment("The strength of the Mining Helmet. 0 = light is disabled. 15 max")
+        public int helmetPower = 15;
 
     }
 

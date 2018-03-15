@@ -10,7 +10,7 @@ public class TileEntityLight extends TileEntity implements ITickable {
 
     private final int INVALID_VALUE = -1;
 
-    private int timeLeft = INVALID_VALUE;
+    private int timeAlive = INVALID_VALUE;
 
     @Override
     public NBTTagCompound getUpdateTag() {
@@ -28,7 +28,7 @@ public class TileEntityLight extends TileEntity implements ITickable {
     public NBTTagCompound writeToNBT(NBTTagCompound parentNBTTagCompound) {
         super.writeToNBT(parentNBTTagCompound);
 
-        parentNBTTagCompound.setInteger("ticksLeft", timeLeft);
+        parentNBTTagCompound.setInteger("timeAlive", timeAlive);
 
         return parentNBTTagCompound;
     }
@@ -39,26 +39,19 @@ public class TileEntityLight extends TileEntity implements ITickable {
 
         final int NBT_INT_ID = 3;
         int readTicks = INVALID_VALUE;
-        if (parentNBTTagCompound.hasKey("ticksLeft", NBT_INT_ID)) {
-            readTicks = parentNBTTagCompound.getInteger("ticksLeft");
+        if (parentNBTTagCompound.hasKey("timeAlive", NBT_INT_ID)) {
+            readTicks = parentNBTTagCompound.getInteger("timeAlive");
             if (readTicks < 0) readTicks = INVALID_VALUE;
         }
-        timeLeft = readTicks;
+        timeAlive = readTicks;
     }
 
     @Override
     public void update() {
         if (!this.hasWorld()) return;
         World world = this.getWorld();
-        if (world.isRemote) return;
-        if (timeLeft == INVALID_VALUE) return;
-        --timeLeft;
-        if (timeLeft > 0) return;
+        if (world.isRemote && timeAlive++ < 5) return;
         world.setBlockState(this.pos, Blocks.AIR.getDefaultState());
     }
 
-
-    public void setTimeLeft(int timeLeft) {
-        this.timeLeft = timeLeft;
-    }
 }
