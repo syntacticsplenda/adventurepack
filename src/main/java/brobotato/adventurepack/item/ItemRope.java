@@ -30,7 +30,7 @@ public class ItemRope extends ItemBase {
     public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, EnumHand hand) {
         ItemStack stack = player.getHeldItem(hand);
         player.setActiveHand(hand);
-        if (ModConfig.client.instantRope) {
+        if (ModConfig.instantRope) {
             BlockPos currentPos = player.getPosition();
             if (!world.isRemote && !world.canBlockSeeSky(currentPos) && (world.provider.getDimension() == dimension)) {
                 player.setPositionAndUpdate(lastOpenPos.getX(), lastOpenPos.getY(), lastOpenPos.getZ());
@@ -49,7 +49,7 @@ public class ItemRope extends ItemBase {
 
     @Override
     public int getMaxItemUseDuration(ItemStack stack) {
-        if(!ModConfig.client.instantRope) return 72000;
+        if(!ModConfig.instantRope) return 72000;
         else return 0;
     }
 
@@ -70,7 +70,7 @@ public class ItemRope extends ItemBase {
             f = 6f;
         }
 
-        if (f == 6f && !ModConfig.client.instantRope) {
+        if (f == 6f && !ModConfig.instantRope) {
             BlockPos currentPos = entity.getPosition();
             if (!world.isRemote && !world.canBlockSeeSky(currentPos) && (world.provider.getDimension() == dimension)) {
                 entity.setPositionAndUpdate(lastOpenPos.getX(), lastOpenPos.getY(), lastOpenPos.getZ());

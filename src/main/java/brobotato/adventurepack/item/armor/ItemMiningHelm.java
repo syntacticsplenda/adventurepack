@@ -1,12 +1,10 @@
 package brobotato.adventurepack.item.armor;
 
 import brobotato.adventurepack.AdventurePack;
-import brobotato.adventurepack.block.light.BlockLight;
+import brobotato.adventurepack.block.ModBlocks;
 import brobotato.adventurepack.config.ModConfig;
 import brobotato.adventurepack.proxy.ClientProxy;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelBiped;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.SoundEvents;
@@ -22,7 +20,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class ItemMiningHelm extends ItemArmor {
 
-    RayTraceResult lookPos = null;
+    private RayTraceResult lookPos = null;
 
     public static final ItemArmor.ArmorMaterial miningArmorMaterial = EnumHelper.addArmorMaterial("MINING",
             AdventurePack.modId + ":mining", 15, new int[]{2, 0, 0, 0}, 9,
@@ -32,34 +30,7 @@ public class ItemMiningHelm extends ItemArmor {
         super(miningArmorMaterial, EntityEquipmentSlot.HEAD, "mining_helmet");
     }
 
-    public BlockPos getRayTraceBefore(RayTraceResult rayTrace) {
-        int x = rayTrace.getBlockPos().getX();
-        int y = rayTrace.getBlockPos().getY();
-        int z = rayTrace.getBlockPos().getZ();
-        switch (rayTrace.sideHit) {
-            case DOWN:
-                y -= 1;
-                break;
-            case UP:
-                y += 1;
-                break;
-            case NORTH:
-                z -= 1;
-                break;
-            case SOUTH:
-                z += 1;
-                break;
-            case WEST:
-                x -= 1;
-                break;
-            case EAST:
-                x += 1;
-                break;
-        }
-        return new BlockPos(x, y, z);
-    }
-
-    public RayTraceResult rayTrace(double blockReachDistance, float partialTicks, EntityPlayer player) {
+    private RayTraceResult rayTrace(double blockReachDistance, float partialTicks, EntityPlayer player) {
         Vec3d vec3d = player.getPositionEyes(partialTicks);
         Vec3d vec3d1 = player.getLook(partialTicks);
         Vec3d vec3d2 = vec3d.addVector(vec3d1.x * blockReachDistance, vec3d1.y * blockReachDistance, vec3d1.z * blockReachDistance);
@@ -69,17 +40,19 @@ public class ItemMiningHelm extends ItemArmor {
     @Override
     public void onArmorTick(World world, EntityPlayer player, ItemStack itemStack) {
         if (!world.isRemote) {
-            lookPos = rayTrace(15, 1.0f, player);
+            lookPos = rayTrace(ModConfig.helmetRange, 1.0f, player);
+            BlockPos pos;
             if (lookPos == null) return;
+            if (lookPos.sideHit != null) pos = lookPos.getBlockPos().offset(lookPos.sideHit);
+            else pos = lookPos.getBlockPos();
             double vecDistance = Math.pow(lookPos.hitVec.squareDistanceTo(player.posX, player.posY, player.posZ), 0.5);
-            if (vecDistance <= 15) {
-                if (world.getBlockState(getRayTraceBefore(lookPos)).getBlock().getUnlocalizedName().equals("tile.air")) {
-                    world.setBlockState(getRayTraceBefore(lookPos), new BlockLight().getDefaultState());
+            if (vecDistance <= ModConfig.helmetRange) {
+                if (world.getBlockState(pos).getBlock().isAir(world.getBlockState(pos), world, pos)) {
+                    player.world.setBlockState(pos, ModBlocks.blockLight.getDefaultState(), 2);
                 }
             }
         }
     }
-
 
     @Override
     @SideOnly(Side.CLIENT)

@@ -4,6 +4,8 @@ import brobotato.adventurepack.block.BlockTileEntity;
 import brobotato.adventurepack.config.ModConfig;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.init.Items;
+import net.minecraft.item.Item;
 import net.minecraft.util.EnumBlockRenderType;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
@@ -12,23 +14,13 @@ import net.minecraft.world.World;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.util.Random;
 
 public class BlockLight extends BlockTileEntity {
 
     public BlockLight() {
         super(Material.AIR, "light");
     }
-
-    /*  probably don't need this for now
-    @Override
-    public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state) {
-        super.onBlockAdded(worldIn, pos, state);
-        TileEntity tileentity = worldIn.getTileEntity(pos);
-        if (tileentity instanceof TileEntityLight) {
-            TileEntityLight tileEntityData = (TileEntityLight) tileentity;
-        }
-    }
-    */
 
     @Nullable
     @Override
@@ -47,10 +39,15 @@ public class BlockLight extends BlockTileEntity {
         return EnumBlockRenderType.INVISIBLE;
     }
 
+    @Nonnull
+    @Override
+    public Item getItemDropped(IBlockState state, @Nonnull Random rand, int fortune) {
+        return Items.AIR;
+    }
     @Override
     @SuppressWarnings("deprecation")
     public int getLightValue(IBlockState state) {
-        return Math.min(15, ModConfig.client.helmetPower);
+        return Math.min(15, ModConfig.helmetPower);
     }
 
     @Override
@@ -73,7 +70,7 @@ public class BlockLight extends BlockTileEntity {
     @Nonnull
     @SuppressWarnings("deprecation")
     public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
-        return new AxisAlignedBB(pos, pos);
+        return NULL_AABB;
     }
 
     @Override

@@ -12,7 +12,7 @@ public class ModItems {
     public static ItemMiningHelm miningHelm = new ItemMiningHelm();
 
     public static void register(IForgeRegistry<Item> registry) {
-        if (ModConfig.client.lanternEnabled)
+        if (ModConfig.lanternEnabled)
             registry.registerAll(
                     lantern
             );
