@@ -12,5 +12,5 @@ public class CommonProxy {
     public void init(FMLInitializationEvent e) {
     }
 
-    public ModelBiped getArmorModel(String type){return null;};
+    public ModelBiped getArmorModel(String type){return null;}
 }

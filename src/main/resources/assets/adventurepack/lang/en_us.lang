@@ -3,7 +3,9 @@
 item.escape_rope.name=Escape Rope
 item.lantern.name=Ender Lantern
 
+#armor
 item.mining_helmet.name=Mining Helmet
+item.explorer_hat.name=Explorer's Hat
 
 #config
 
