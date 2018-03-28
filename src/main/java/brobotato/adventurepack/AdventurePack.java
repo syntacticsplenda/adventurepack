@@ -1,10 +1,12 @@
 package brobotato.adventurepack;
 
 import brobotato.adventurepack.block.ModBlocks;
+import brobotato.adventurepack.crafting.ModCrafting;
 import brobotato.adventurepack.item.ModItems;
 import brobotato.adventurepack.proxy.CommonProxy;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
+import net.minecraft.item.crafting.IRecipe;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -19,7 +21,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 public class AdventurePack {
     public static final String modId = "adventurepack";
     public static final String name = "Adventure Pack";
-    public static final String version = "1.2.0";
+    public static final String version = "1.3.0";
 
     @SidedProxy(serverSide = "brobotato.adventurepack.proxy.CommonProxy", clientSide = "brobotato.adventurepack.proxy.ClientProxy")
     public static CommonProxy proxy;
@@ -59,6 +61,11 @@ public class AdventurePack {
         @SubscribeEvent
         public static void registerBlocks(RegistryEvent.Register<Block> event) {
             ModBlocks.register(event.getRegistry());
+        }
+
+        @SubscribeEvent
+        public static void registerRecipes(RegistryEvent.Register<IRecipe> event) {
+            ModCrafting.register(event.getRegistry());
         }
     }
 

@@ -1,23 +1,22 @@
 package brobotato.adventurepack.item.armor;
 
 import brobotato.adventurepack.AdventurePack;
-import brobotato.adventurepack.block.ModBlocks;
-import brobotato.adventurepack.config.ModConfig;
 import brobotato.adventurepack.proxy.ClientProxy;
 import net.minecraft.client.model.ModelBiped;
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.EntityEquipmentSlot;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.RayTraceResult;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
-import net.minecraftforge.common.ISpecialArmor;
 import net.minecraftforge.common.util.EnumHelper;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+
+import java.util.List;
 
 public class ItemExplorerHat extends ItemArmor {
 
@@ -29,6 +28,65 @@ public class ItemExplorerHat extends ItemArmor {
         super(explorerArmorMaterial, EntityEquipmentSlot.HEAD, "explorer_hat");
         this.setMaxDamage(133);
     }
+
+    @Override
+    public boolean hasColor(ItemStack stack) {
+        return true;
+    }
+
+    @Override
+    public int getColor(ItemStack stack) {
+        NBTTagCompound nbttagcompound = stack.getTagCompound();
+
+        if (nbttagcompound != null) {
+            NBTTagCompound nbttagcompound1 = nbttagcompound.getCompoundTag("display");
+
+            if (nbttagcompound1.hasKey("color", 3)) {
+                return nbttagcompound1.getInteger("color");
+            }
+        }
+
+        return 4663833;
+    }
+
+
+    @Override
+    public void removeColor(ItemStack stack) {
+        NBTTagCompound nbttagcompound = stack.getTagCompound();
+
+        if (nbttagcompound != null) {
+            NBTTagCompound nbttagcompound1 = nbttagcompound.getCompoundTag("display");
+
+            if (nbttagcompound1.hasKey("color")) {
+                nbttagcompound1.removeTag("color");
+            }
+        }
+    }
+
+    @Override
+    public void setColor(ItemStack stack, int color) {
+        NBTTagCompound nbttagcompound = stack.getTagCompound();
+
+        if (nbttagcompound == null) {
+            nbttagcompound = new NBTTagCompound();
+            stack.setTagCompound(nbttagcompound);
+        }
+
+        NBTTagCompound nbttagcompound1 = nbttagcompound.getCompoundTag("display");
+
+        if (!nbttagcompound.hasKey("display", 10)) {
+            nbttagcompound.setTag("display", nbttagcompound1);
+        }
+
+        nbttagcompound1.setInteger("color", color);
+    }
+
+    @Override
+    public boolean hasOverlay(ItemStack stack)
+    {
+        return true;
+    }
+
     @Override
     @SideOnly(Side.CLIENT)
     public ModelBiped getArmorModel(EntityLivingBase entityLiving, ItemStack itemStack, EntityEquipmentSlot armorSlot,
