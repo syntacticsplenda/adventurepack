@@ -18,6 +18,10 @@ public class ModConfig {
     public static boolean instantRope = false;
     @Config.Comment("If the Ender Lantern is enabled.")
     public static boolean lanternEnabled = true;
+    @Config.Comment("If the Mining Helmet is enabled.")
+    public static boolean helmetEnabled = true;
+    @Config.Comment("The max radius of the Ender Lantern. 0 = default (4)")
+    public static int lanternMax = 0;
     @Config.Comment("The strength of the Mining Helmet. 0 = light is disabled. 15 max")
     public static int helmetPower = 7;
     @Config.Comment("The range of the Mining Helmet. 0 = light is disabled.")

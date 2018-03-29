@@ -18,9 +18,12 @@ public class ModItems {
             registry.registerAll(
                     lantern
             );
+        if (ModConfig.helmetEnabled)
+            registry.registerAll(
+                    miningHelm
+            );
         registry.registerAll(
                 escapeRope,
-                miningHelm,
                 explorerHat
         );
     }

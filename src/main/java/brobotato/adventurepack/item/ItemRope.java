@@ -7,6 +7,8 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagInt;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
@@ -17,9 +19,6 @@ import javax.annotation.Nonnull;
 
 
 public class ItemRope extends ItemBase {
-
-    BlockPos lastOpenPos = null;
-    int dimension;
 
     public ItemRope() {
         super("escape_rope");
@@ -32,8 +31,10 @@ public class ItemRope extends ItemBase {
         player.setActiveHand(hand);
         if (ModConfig.instantRope) {
             BlockPos currentPos = player.getPosition();
-            if (!world.isRemote && !world.canBlockSeeSky(currentPos) && (world.provider.getDimension() == dimension)) {
-                player.setPositionAndUpdate(lastOpenPos.getX(), lastOpenPos.getY(), lastOpenPos.getZ());
+            if (!world.isRemote && !world.canBlockSeeSky(currentPos) && (world.provider.getDimension() == stack.getTagCompound().getInteger("dim"))) {
+                player.setPositionAndUpdate(stack.getTagCompound().getInteger("x"),
+                                            stack.getTagCompound().getInteger("y"),
+                                            stack.getTagCompound().getInteger("z"));
                 if (!player.capabilities.isCreativeMode)
                     stack.shrink(1);
             }
@@ -49,7 +50,7 @@ public class ItemRope extends ItemBase {
 
     @Override
     public int getMaxItemUseDuration(ItemStack stack) {
-        if(!ModConfig.instantRope) return 72000;
+        if (!ModConfig.instantRope) return 72000;
         else return 0;
     }
 
@@ -72,8 +73,10 @@ public class ItemRope extends ItemBase {
 
         if (f == 6f && !ModConfig.instantRope) {
             BlockPos currentPos = entity.getPosition();
-            if (!world.isRemote && !world.canBlockSeeSky(currentPos) && (world.provider.getDimension() == dimension)) {
-                entity.setPositionAndUpdate(lastOpenPos.getX(), lastOpenPos.getY(), lastOpenPos.getZ());
+            if (!world.isRemote && !world.canBlockSeeSky(currentPos) && (world.provider.getDimension() == stack.getTagCompound().getInteger("dim"))) {
+                entity.setPositionAndUpdate(stack.getTagCompound().getInteger("x"),
+                                            stack.getTagCompound().getInteger("y"),
+                                            stack.getTagCompound().getInteger("z"));
                 EntityPlayer playerIn = (EntityPlayer) entity;
                 if (!playerIn.capabilities.isCreativeMode)
                     stack.shrink(1);
@@ -82,12 +85,22 @@ public class ItemRope extends ItemBase {
     }
 
     @Override
-    public void onUpdate(ItemStack ItemStack, World world, Entity entity, int itemSlot, boolean isSelected) {
+    public void onUpdate(ItemStack itemStack, World world, Entity entity, int itemSlot, boolean isSelected) {
         if (!world.isRemote) {
             BlockPos pos = new BlockPos(entity.posX, entity.posY, entity.posZ);
             if (world.canBlockSeeSky(pos) && entity.onGround) {
-                lastOpenPos = pos;
-                dimension = world.provider.getDimension();
+                if (!itemStack.hasTagCompound()) {
+                    itemStack.getOrCreateSubCompound("x");
+                    itemStack.getOrCreateSubCompound("y");
+                    itemStack.getOrCreateSubCompound("z");
+                    itemStack.getOrCreateSubCompound("dim");
+                }
+                NBTTagCompound tag = new NBTTagCompound();
+                tag.setTag("x", new NBTTagInt(pos.getX()));
+                tag.setTag("y", new NBTTagInt(pos.getY()));
+                tag.setTag("z", new NBTTagInt(pos.getZ()));
+                tag.setTag("dim", new NBTTagInt(world.provider.getDimension()));
+                itemStack.setTagCompound(tag);
             }
         }
     }

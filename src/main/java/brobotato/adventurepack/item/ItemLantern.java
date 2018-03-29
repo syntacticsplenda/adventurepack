@@ -116,7 +116,7 @@ public class ItemLantern extends ItemBase {
         Minecraft mc = Minecraft.getMinecraft();
         EntityPlayerSP player = mc.player;
         BlockPos currentPos = player.getPosition();
-        int radius = ModConfig.client.lanternRadius;
+        int radius = Math.min(ModConfig.lanternMax,ModConfig.client.lanternRadius);
         if (radius == 0) radius = 4;
         for (int x = currentPos.getX() - radius; x < currentPos.getX() + radius; x++) {
             for (int y = currentPos.getY() - radius; y < currentPos.getY() + radius; y++) {
