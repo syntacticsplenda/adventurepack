@@ -22,10 +22,14 @@ public class ModItems {
             registry.registerAll(
                     miningHelm
             );
-        registry.registerAll(
-                escapeRope,
-                explorerHat
-        );
+        if (ModConfig.hatEnabled)
+            registry.registerAll(
+                    explorerHat
+            );
+        if (ModConfig.ropeEnabled)
+            registry.registerAll(
+                    escapeRope
+            );
     }
 
     public static void registerModels() {
