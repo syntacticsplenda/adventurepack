@@ -9,11 +9,14 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.client.event.ColorHandlerEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 @Mod.EventBusSubscriber(modid = AdventurePack.modId)
 public class ModColorHandler {
 
     @SubscribeEvent
+    @SideOnly(Side.CLIENT)
     public static void registerItemColourHandlers(final ColorHandlerEvent.Item event) {
         final ItemColors itemColors = event.getItemColors();
 

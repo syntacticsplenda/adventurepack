@@ -5,10 +5,11 @@
 /run
 
 ## IntelliJ
+/.idea
 /out
-/*.ipr
-/*.iws
-/*.iml
+*.ipr
+*.iws
+*.iml
 
 *.jar
 *.xml

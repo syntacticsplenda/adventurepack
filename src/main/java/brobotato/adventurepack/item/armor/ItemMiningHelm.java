@@ -10,6 +10,11 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagInt;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.EnumActionResult;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
@@ -20,10 +25,8 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class ItemMiningHelm extends ItemArmor {
 
-    private RayTraceResult lookPos = null;
-
     public static final ItemArmor.ArmorMaterial miningArmorMaterial = EnumHelper.addArmorMaterial("MINING",
-            AdventurePack.modId + ":mining", 15, new int[]{2, 0, 0, 0}, 9,
+            AdventurePack.modId + ":mining", 15, new int[]{0, 0, 0, 0}, 9,
             SoundEvents.ITEM_ARMOR_EQUIP_IRON, 0.0F);
 
     public ItemMiningHelm() {
@@ -40,7 +43,8 @@ public class ItemMiningHelm extends ItemArmor {
     @Override
     public void onArmorTick(World world, EntityPlayer player, ItemStack itemStack) {
         if (!world.isRemote) {
-            lookPos = rayTrace(ModConfig.helmetRange, 1.0f, player);
+            if (itemStack.hasTagCompound() && itemStack.getTagCompound().getInteger("on") == 1) return;
+            RayTraceResult lookPos = rayTrace(ModConfig.helmetRange, 1.0f, player);
             BlockPos pos;
             if (lookPos == null) return;
             if (lookPos.sideHit != null) pos = lookPos.getBlockPos().offset(lookPos.sideHit);
@@ -53,6 +57,29 @@ public class ItemMiningHelm extends ItemArmor {
             }
         }
     }
+
+    @Override
+    public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn) {
+        if (!playerIn.isSneaking()) super.onItemRightClick(worldIn, playerIn, handIn);
+        ItemStack itemStack = playerIn.getHeldItem(handIn);
+        if (!itemStack.hasTagCompound()) {
+            itemStack.getOrCreateSubCompound("on");
+            NBTTagCompound tag = new NBTTagCompound();
+            tag.setTag("on", new NBTTagInt(1));
+            itemStack.setTagCompound(tag);
+        }
+        if (itemStack.getTagCompound().getInteger("on") == 1) {
+            NBTTagCompound tag = new NBTTagCompound();
+            tag.setTag("on", new NBTTagInt(0));
+            itemStack.setTagCompound(tag);
+        } else if (itemStack.getTagCompound().getInteger("on") == 0) {
+            NBTTagCompound tag = new NBTTagCompound();
+            tag.setTag("on", new NBTTagInt(1));
+            itemStack.setTagCompound(tag);
+        }
+        return new ActionResult<ItemStack>(EnumActionResult.PASS, playerIn.getHeldItem(handIn));
+    }
+
 
     @Override
     @SideOnly(Side.CLIENT)
