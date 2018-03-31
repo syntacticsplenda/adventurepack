@@ -33,8 +33,8 @@ public class ItemRope extends ItemBase {
             BlockPos currentPos = player.getPosition();
             if (!world.isRemote && !world.canBlockSeeSky(currentPos) && (world.provider.getDimension() == stack.getTagCompound().getInteger("dim"))) {
                 player.setPositionAndUpdate(stack.getTagCompound().getInteger("x"),
-                                            stack.getTagCompound().getInteger("y"),
-                                            stack.getTagCompound().getInteger("z"));
+                        stack.getTagCompound().getInteger("y"),
+                        stack.getTagCompound().getInteger("z"));
                 if (!player.capabilities.isCreativeMode)
                     stack.shrink(1);
             }
@@ -75,8 +75,8 @@ public class ItemRope extends ItemBase {
             BlockPos currentPos = entity.getPosition();
             if (!world.isRemote && !world.canBlockSeeSky(currentPos) && (world.provider.getDimension() == stack.getTagCompound().getInteger("dim"))) {
                 entity.setPositionAndUpdate(stack.getTagCompound().getInteger("x"),
-                                            stack.getTagCompound().getInteger("y"),
-                                            stack.getTagCompound().getInteger("z"));
+                        stack.getTagCompound().getInteger("y"),
+                        stack.getTagCompound().getInteger("z"));
                 EntityPlayer playerIn = (EntityPlayer) entity;
                 if (!playerIn.capabilities.isCreativeMode)
                     stack.shrink(1);

@@ -44,6 +44,7 @@ public class BlockLight extends BlockTileEntity {
     public Item getItemDropped(IBlockState state, @Nonnull Random rand, int fortune) {
         return Items.AIR;
     }
+
     @Override
     @SuppressWarnings("deprecation")
     public int getLightValue(IBlockState state) {

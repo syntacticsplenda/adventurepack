@@ -76,8 +76,7 @@ public class ItemExplorerHat extends ItemArmor {
     }
 
     @Override
-    public boolean hasOverlay(ItemStack stack)
-    {
+    public boolean hasOverlay(ItemStack stack) {
         return true;
     }
 

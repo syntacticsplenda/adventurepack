@@ -11,7 +11,7 @@ public class ModBlocks {
 
     public static void register(IForgeRegistry<Block> registry) {
         registry.registerAll(blockLight);
-        GameRegistry.registerTileEntity(blockLight.getTileEntityClass(),blockLight.getRegistryName().toString());
+        GameRegistry.registerTileEntity(blockLight.getTileEntityClass(), blockLight.getRegistryName().toString());
     }
 
     public static void registerItemBlocks(IForgeRegistry<Item> registry) {
