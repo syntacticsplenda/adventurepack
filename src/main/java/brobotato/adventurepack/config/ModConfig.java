@@ -14,12 +14,12 @@ public class ModConfig {
 
     public static Client client = new Client();
 
-    @Config.Comment("If the Explorer Hat is enabled.")
-    public static boolean hatEnabled = true;
     @Config.Comment("If the Escape Rope is enabled.")
     public static boolean ropeEnabled = true;
     @Config.Comment("If the rope should be instant")
     public static boolean instantRope = false;
+    @Config.Comment("If the Flashlight is enabled.")
+    public static boolean flashlightEnabled = true;
     @Config.Comment("If the Ender Lantern is enabled.")
     public static boolean lanternEnabled = true;
     @Config.Comment("The max radius of the Ender Lantern. 0 = default (4)")
@@ -30,6 +30,8 @@ public class ModConfig {
     public static int helmetPower = 7;
     @Config.Comment("The range of the Mining Helmet. 0 = light is disabled.")
     public static int helmetRange = 7;
+    @Config.Comment("If the Explorer Hat is enabled.")
+    public static boolean hatEnabled = true;
 
     public static class Client {
         @Config.Comment("The radius of the Ender Lantern. 0 = default (4)")

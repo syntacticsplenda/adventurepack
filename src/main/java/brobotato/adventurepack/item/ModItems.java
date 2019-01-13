@@ -9,11 +9,20 @@ import net.minecraftforge.registries.IForgeRegistry;
 
 public class ModItems {
     public static ItemRope escapeRope = new ItemRope();
+    public static ItemFlashlight flashlight = new ItemFlashlight();
     public static ItemLantern lantern = new ItemLantern();
     public static ItemMiningHelm miningHelm = new ItemMiningHelm();
     public static ItemExplorerHat explorerHat = new ItemExplorerHat();
 
     public static void register(IForgeRegistry<Item> registry) {
+        if (ModConfig.ropeEnabled)
+            registry.registerAll(
+                    escapeRope
+            );
+        if (ModConfig.flashlightEnabled)
+            registry.registerAll(
+                    flashlight
+            );
         if (ModConfig.lanternEnabled)
             registry.registerAll(
                     lantern
@@ -26,14 +35,11 @@ public class ModItems {
             registry.registerAll(
                     explorerHat
             );
-        if (ModConfig.ropeEnabled)
-            registry.registerAll(
-                    escapeRope
-            );
     }
 
     public static void registerModels() {
         escapeRope.registerItemModel();
+        flashlight.registerItemModel();
         lantern.registerItemModel();
         miningHelm.registerItemModel();
         explorerHat.registerItemModel();
