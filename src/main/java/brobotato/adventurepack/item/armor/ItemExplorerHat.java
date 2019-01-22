@@ -3,14 +3,19 @@ package brobotato.adventurepack.item.armor;
 import brobotato.adventurepack.AdventurePack;
 import brobotato.adventurepack.proxy.ClientProxy;
 import net.minecraft.client.model.ModelBiped;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.world.World;
 import net.minecraftforge.common.util.EnumHelper;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+
+import javax.annotation.Nullable;
+import java.util.List;
 
 public class ItemExplorerHat extends ItemArmor {
 
@@ -121,5 +126,9 @@ public class ItemExplorerHat extends ItemArmor {
             }
         }
         return null;
+    }
+
+    public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
+        tooltip.add("Dyeable");
     }
 }

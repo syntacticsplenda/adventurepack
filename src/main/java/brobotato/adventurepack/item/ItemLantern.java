@@ -8,13 +8,19 @@ import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.Style;
+import net.minecraft.util.text.TextComponentString;
+import net.minecraft.world.World;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
 import org.lwjgl.opengl.GL11;
 
+import javax.annotation.Nullable;
 import java.util.ArrayList;
+import java.util.List;
 
 public class ItemLantern extends ItemBase {
 
@@ -111,7 +117,7 @@ public class ItemLantern extends ItemBase {
         GlStateManager.popMatrix();
     }
 
-    public static ArrayList<BlockPos> nearbyOre() {
+    private static ArrayList<BlockPos> nearbyOre() {
         ArrayList<BlockPos> oreList = new ArrayList<>();
         Minecraft mc = Minecraft.getMinecraft();
         EntityPlayerSP player = mc.player;
@@ -129,5 +135,11 @@ public class ItemLantern extends ItemBase {
             }
         }
         return oreList;
+    }
+
+    public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
+        TextComponentString info = new TextComponentString("Reveals nearby ores");
+        info.setStyle(new Style().setItalic(true));
+        tooltip.add(info.getFormattedText());
     }
 }

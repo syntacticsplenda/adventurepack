@@ -2,12 +2,11 @@ package brobotato.adventurepack.item;
 
 import brobotato.adventurepack.block.ModBlocks;
 import brobotato.adventurepack.config.ModConfig;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Items;
-import net.minecraft.item.EnumAction;
 import net.minecraft.item.IItemPropertyGetter;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -19,12 +18,14 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.text.Style;
+import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.util.List;
 
 
 public class ItemFlashlight extends ItemBase {
@@ -33,17 +34,12 @@ public class ItemFlashlight extends ItemBase {
         super("flashlight");
         this.setCreativeTab(CreativeTabs.TOOLS);
         this.setMaxStackSize(1);
-        this.addPropertyOverride(new ResourceLocation("light"), new IItemPropertyGetter()
-        {
+        this.addPropertyOverride(new ResourceLocation("light"), new IItemPropertyGetter() {
             @SideOnly(Side.CLIENT)
-            public float apply(ItemStack stack, @Nullable World worldIn, @Nullable EntityLivingBase entityIn)
-            {
-                if (entityIn == null)
-                {
+            public float apply(ItemStack stack, @Nullable World worldIn, @Nullable EntityLivingBase entityIn) {
+                if (entityIn == null) {
                     return 0.0F;
-                }
-                else
-                {
+                } else {
                     if (!stack.hasTagCompound()) return 0.0F;
                     return stack.getTagCompound().getInteger("on") == 1 ? 0.0F : 1.0F;
                 }
@@ -66,7 +62,8 @@ public class ItemFlashlight extends ItemBase {
         EntityPlayer player = (EntityPlayer) entity;
         if (!(player.getHeldItemMainhand() == itemStack) && !(player.getHeldItemOffhand() == itemStack)) return;
         if (!world.isRemote) {
-            if (itemStack.hasTagCompound() && itemStack.getTagCompound().getInteger("on") == 1) return;
+            if (!itemStack.hasTagCompound()) return;
+            if (itemStack.getTagCompound().getInteger("on") == 1) return;
             RayTraceResult lookPos = rayTrace(ModConfig.helmetRange, 1.0f, player);
             BlockPos pos;
             if (lookPos == null) return;
@@ -76,6 +73,8 @@ public class ItemFlashlight extends ItemBase {
             if (vecDistance <= ModConfig.helmetRange) {
                 if (world.getBlockState(pos).getBlock().isAir(world.getBlockState(pos), world, pos)) {
                     player.world.setBlockState(pos, ModBlocks.blockLight.getDefaultState(), 2);
+                } else if (world.getBlockState(pos.add(0, 1, 0)).getBlock().isAir(world.getBlockState(pos.add(0, 1, 0)), world, pos.add(0, 1, 0))) {
+                    player.world.setBlockState(pos.add(0, 1, 0), ModBlocks.blockLight.getDefaultState(), 2);
                 }
             }
         }
@@ -100,5 +99,12 @@ public class ItemFlashlight extends ItemBase {
             itemStack.setTagCompound(tag);
         }
         return new ActionResult<ItemStack>(EnumActionResult.PASS, playerIn.getHeldItem(handIn));
+    }
+
+    @Override
+    public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
+        TextComponentString info = new TextComponentString("Right-click to toggle");
+        info.setStyle(new Style().setItalic(true));
+        tooltip.add(info.getFormattedText());
     }
 }

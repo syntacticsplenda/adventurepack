@@ -18,6 +18,8 @@ import java.util.Random;
 
 public class BlockLight extends BlockTileEntity {
 
+    private static AxisAlignedBB Light_Block_AABB = new AxisAlignedBB(0.0D, 0.0D, 0.0D, 0.0D, 0.0D, 0.0D);
+
     public BlockLight() {
         super(Material.AIR, "light");
     }
@@ -71,14 +73,14 @@ public class BlockLight extends BlockTileEntity {
     @Nonnull
     @SuppressWarnings("deprecation")
     public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
-        return NULL_AABB;
+        return Light_Block_AABB;
     }
 
     @Override
     @Nullable
     @SuppressWarnings("deprecation")
     public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos) {
-        return NULL_AABB;
+        return Light_Block_AABB;
     }
 
     @Override

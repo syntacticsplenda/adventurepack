@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shaped",
   "pattern": [
     "#I ",
-    "IRI",
+    "ITI",
     " IS"
   ],
   "key": {
@@ -12,8 +12,8 @@
     "I": {
       "item": "minecraft:iron_nugget"
     },
-    "R": {
-      "item": "minecraft:redstone"
+    "T": {
+      "item": "minecraft:torch"
     },
     "S": {
       "item": "minecraft:stone_button"

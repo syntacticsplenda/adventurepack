@@ -1,6 +1,7 @@
 package brobotato.adventurepack.item;
 
 import brobotato.adventurepack.config.ModConfig;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -13,9 +14,13 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.Style;
+import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.World;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import java.util.List;
 
 
 public class ItemRope extends ItemBase {
@@ -31,7 +36,19 @@ public class ItemRope extends ItemBase {
         player.setActiveHand(hand);
         if (ModConfig.instantRope) {
             BlockPos currentPos = player.getPosition();
-            if (!world.isRemote && !world.canBlockSeeSky(currentPos) && (world.provider.getDimension() == stack.getTagCompound().getInteger("dim"))) {
+            if (!stack.hasTagCompound()) {
+                if (ModConfig.ropeSpawn) {
+                    if (!world.isRemote && !world.canBlockSeeSky(currentPos) && (player.getBedLocation() != null)) {
+                        player.setPositionAndUpdate(player.getBedLocation().getX(),
+                                player.getBedLocation().getY(),
+                                player.getBedLocation().getZ()
+                        );
+                        if (!player.capabilities.isCreativeMode)
+                            stack.shrink(1);
+                    }
+
+                }
+            } else if (!world.isRemote && !world.canBlockSeeSky(currentPos) && (world.provider.getDimension() == stack.getTagCompound().getInteger("dim"))) {
                 player.setPositionAndUpdate(stack.getTagCompound().getInteger("x"),
                         stack.getTagCompound().getInteger("y"),
                         stack.getTagCompound().getInteger("z"));
@@ -73,11 +90,23 @@ public class ItemRope extends ItemBase {
 
         if (f == 6f && !ModConfig.instantRope) {
             BlockPos currentPos = entity.getPosition();
-            if (!world.isRemote && !world.canBlockSeeSky(currentPos) && (world.provider.getDimension() == stack.getTagCompound().getInteger("dim"))) {
+            EntityPlayer playerIn = (EntityPlayer) entity;
+            if (!stack.hasTagCompound()) {
+                if (ModConfig.ropeSpawn) {
+                    if (!world.isRemote && !world.canBlockSeeSky(currentPos) && (playerIn.getBedLocation() != null)) {
+                        entity.setPositionAndUpdate(playerIn.getBedLocation().getX(),
+                                playerIn.getBedLocation().getY(),
+                                playerIn.getBedLocation().getZ()
+                        );
+                        if (!playerIn.capabilities.isCreativeMode)
+                            stack.shrink(1);
+                    }
+
+                }
+            } else if (!world.isRemote && !world.canBlockSeeSky(currentPos) && (world.provider.getDimension() == stack.getTagCompound().getInteger("dim"))) {
                 entity.setPositionAndUpdate(stack.getTagCompound().getInteger("x"),
                         stack.getTagCompound().getInteger("y"),
                         stack.getTagCompound().getInteger("z"));
-                EntityPlayer playerIn = (EntityPlayer) entity;
                 if (!playerIn.capabilities.isCreativeMode)
                     stack.shrink(1);
             }
@@ -103,5 +132,12 @@ public class ItemRope extends ItemBase {
                 itemStack.setTagCompound(tag);
             }
         }
+    }
+
+    @Override
+    public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
+        TextComponentString info = new TextComponentString("Teleports you out of caves");
+        info.setStyle(new Style().setItalic(true));
+        tooltip.add(info.getFormattedText());
     }
 }

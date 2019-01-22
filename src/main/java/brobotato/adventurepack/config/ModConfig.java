@@ -18,6 +18,8 @@ public class ModConfig {
     public static boolean ropeEnabled = true;
     @Config.Comment("If the rope should be instant")
     public static boolean instantRope = false;
+    @Config.Comment("If the rope should teleport the user to their spawn if it has no stored location")
+    public static boolean ropeSpawn = true;
     @Config.Comment("If the Flashlight is enabled.")
     public static boolean flashlightEnabled = true;
     @Config.Comment("If the Ender Lantern is enabled.")

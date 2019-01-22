@@ -5,6 +5,7 @@ import brobotato.adventurepack.block.ModBlocks;
 import brobotato.adventurepack.config.ModConfig;
 import brobotato.adventurepack.proxy.ClientProxy;
 import net.minecraft.client.model.ModelBiped;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.SoundEvents;
@@ -18,15 +19,20 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.text.Style;
+import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.EnumHelper;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import javax.annotation.Nullable;
+import java.util.List;
+
 public class ItemMiningHelm extends ItemArmor {
 
     public static final ItemArmor.ArmorMaterial miningArmorMaterial = EnumHelper.addArmorMaterial("MINING",
-            AdventurePack.modId + ":mining", 15, new int[]{0, 0, 0, 0}, 9,
+            AdventurePack.modId + ":mining", 15, new int[]{1, 1, 1, 1}, 9,
             SoundEvents.ITEM_ARMOR_EQUIP_IRON, 0.0F);
 
     public ItemMiningHelm() {
@@ -53,6 +59,8 @@ public class ItemMiningHelm extends ItemArmor {
             if (vecDistance <= ModConfig.helmetRange) {
                 if (world.getBlockState(pos).getBlock().isAir(world.getBlockState(pos), world, pos)) {
                     player.world.setBlockState(pos, ModBlocks.blockLight.getDefaultState(), 2);
+                } else if (world.getBlockState(pos.add(0, 1, 0)).getBlock().isAir(world.getBlockState(pos.add(0, 1, 0)), world, pos.add(0, 1, 0))) {
+                    player.world.setBlockState(pos.add(0, 1, 0), ModBlocks.blockLight.getDefaultState(), 2);
                 }
             }
         }
@@ -122,5 +130,11 @@ public class ItemMiningHelm extends ItemArmor {
             }
         }
         return null;
+    }
+
+    public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
+        TextComponentString info = new TextComponentString("Shift-right-click to toggle");
+        info.setStyle(new Style().setItalic(true));
+        tooltip.add(info.getFormattedText());
     }
 }
