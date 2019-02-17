@@ -1,0 +1,6 @@
+{
+  "parent": "adventurepack:item/flashlight",
+  "textures": {
+    "layer0": "adventurepack:items/flashlight_on"
+  }
+}
