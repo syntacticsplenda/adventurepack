@@ -1,7 +1,0 @@
-{
-  "parent": "builtin/generated",
-  "textures": {
-    "layer0": "adventurepack:items/explorer_hat",
-    "layer1": "adventurepack:items/explorer_hat_overlay"
-  }
-}
