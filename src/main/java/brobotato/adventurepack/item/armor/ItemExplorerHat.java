@@ -1,7 +1,9 @@
 package brobotato.adventurepack.item.armor;
 
+import brobotato.adventurepack.AdventurePack;
 import brobotato.adventurepack.client.model.ModelExplorerHat;
 import net.minecraft.client.renderer.entity.model.ModelBiped;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.EntityEquipmentSlot;
@@ -10,11 +12,14 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemArmorDyeable;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.registries.ForgeRegistries;
+
+import javax.annotation.Nonnull;
 
 public class ItemExplorerHat extends ItemArmorDyeable {
 
@@ -73,4 +78,9 @@ public class ItemExplorerHat extends ItemArmorDyeable {
         return model;
     }
 
+    @Nonnull
+    @Override
+    public final String getArmorTexture(ItemStack stack, Entity entity, EntityEquipmentSlot slot, String type) {
+        return AdventurePack.modId + ":" + "/textures/models/armor/explorer_layer_1.png";
+    }
 }

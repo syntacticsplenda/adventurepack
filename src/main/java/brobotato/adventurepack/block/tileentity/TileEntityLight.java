@@ -1,7 +1,6 @@
 package brobotato.adventurepack.block.tileentity;
 
 import brobotato.adventurepack.AdventurePack;
-import brobotato.adventurepack.block.ModBlocks;
 import net.minecraft.init.Blocks;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityType;

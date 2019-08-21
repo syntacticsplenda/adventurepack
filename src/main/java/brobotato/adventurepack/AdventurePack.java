@@ -1,18 +1,11 @@
 package brobotato.adventurepack;
 
-import brobotato.adventurepack.block.ModBlocks;
 import brobotato.adventurepack.config.Config;
 import brobotato.adventurepack.item.ModItemGroup;
-import brobotato.adventurepack.item.ModItems;
 import brobotato.adventurepack.proxy.ClientProxy;
 import brobotato.adventurepack.proxy.CommonProxy;
 import brobotato.adventurepack.proxy.IProxy;
-import net.minecraft.block.Block;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
-import net.minecraft.tileentity.TileEntityType;
-import net.minecraftforge.event.RegistryEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;

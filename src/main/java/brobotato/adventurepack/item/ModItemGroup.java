@@ -14,18 +14,12 @@ public class ModItemGroup extends ItemGroup {
     private NonNullList<ItemStack> list;
 
     public ModItemGroup(String label) {
-        super(label);
-        this.setNoTitle();
+        super(-1, label);
     }
 
     @Override
     public ItemStack createIcon() {
         return new ItemStack(ModItems.escapeRope);
-    }
-
-    @Override
-    public boolean hasSearchBar() {
-        return true;
     }
 
     @Override
