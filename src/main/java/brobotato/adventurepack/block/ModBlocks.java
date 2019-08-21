@@ -1,25 +1,25 @@
 package brobotato.adventurepack.block;
 
-import brobotato.adventurepack.block.light.BlockLight;
+import brobotato.adventurepack.AdventurePack;
+import brobotato.adventurepack.block.tileentity.TileEntityLight;
 import net.minecraft.block.Block;
-import net.minecraft.item.Item;
-import net.minecraftforge.fml.common.registry.GameRegistry;
-import net.minecraftforge.registries.IForgeRegistry;
+import net.minecraft.init.Blocks;
+import net.minecraft.tileentity.TileEntityType;
+import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.registries.ObjectHolder;
 
+@ObjectHolder(AdventurePack.modId)
 public class ModBlocks {
-    public static BlockLight blockLight = new BlockLight();
 
-    public static void register(IForgeRegistry<Block> registry) {
-        registry.registerAll(blockLight);
-        GameRegistry.registerTileEntity(blockLight.getTileEntityClass(), blockLight.getRegistryName().toString());
+    public static final Block blockLight = null;
+    public static final TileEntityType<TileEntityLight> tileEntityLight = null;
+
+    public static void registerBlocks(RegistryEvent.Register<Block> registry) {
+        registry.getRegistry().register(new BlockLight("adventurepack_light", Block.Properties.from(Blocks.AIR)));
     }
 
-    public static void registerItemBlocks(IForgeRegistry<Item> registry) {
-        registry.registerAll(blockLight.createItemBlock());
-    }
-
-    public static void registerModels() {
-        blockLight.registerItemModel(Item.getItemFromBlock(blockLight));
+    public static void registerTileEntities(RegistryEvent.Register<TileEntityType<?>> registry) {
+        registry.getRegistry().register(TileEntityType.Builder.create(TileEntityLight::new).build(null).setRegistryName(AdventurePack.modId, "tile_entity_light"));
     }
 
 }

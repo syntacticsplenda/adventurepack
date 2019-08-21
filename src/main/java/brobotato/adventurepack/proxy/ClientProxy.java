@@ -1,46 +1,20 @@
 package brobotato.adventurepack.proxy;
 
-import brobotato.adventurepack.AdventurePack;
 import brobotato.adventurepack.RenderHighlightedHandler;
-import brobotato.adventurepack.item.armor.ModelExplorerHat;
-import brobotato.adventurepack.item.armor.ModelMiningHelm;
-import net.minecraft.client.model.ModelBiped;
-import net.minecraft.client.renderer.block.model.ModelResourceLocation;
-import net.minecraft.item.Item;
-import net.minecraftforge.client.model.ModelLoader;
+import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.fml.common.event.FMLInitializationEvent;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
+import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 
-public class ClientProxy extends CommonProxy {
+@Mod.EventBusSubscriber(Dist.CLIENT)
+public class ClientProxy implements IProxy{
 
-    private static final ModelMiningHelm m_helm = new ModelMiningHelm(1.0f);
-    public static final String M_HELM = "MHELM";
-    private static final ModelExplorerHat e_hat = new ModelExplorerHat(1.0f);
-    public static final String E_HAT = "EHAT";
-
-    @Override
-    public ModelBiped getArmorModel(String type) {
-
-        switch (type) {
-            case M_HELM:
-                return m_helm;
-            case E_HAT:
-                return e_hat;
-            default:
-                break;
-        }
-
-        return null;
+    public void registerHandlers() {
+        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::clientSetup);
     }
 
-    @Override
-    public void registerItemRenderer(Item item, int meta, String id) {
-        ModelLoader.setCustomModelResourceLocation(item, meta, new ModelResourceLocation(AdventurePack.modId + ":" + id, "inventory"));
-    }
-
-    @Override
-    public void init(FMLInitializationEvent e) {
-        super.init(e);
+    private void clientSetup(FMLClientSetupEvent event) {
         MinecraftForge.EVENT_BUS.register(new RenderHighlightedHandler());
     }
 

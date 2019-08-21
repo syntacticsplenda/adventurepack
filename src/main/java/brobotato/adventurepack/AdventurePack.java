@@ -1,72 +1,37 @@
 package brobotato.adventurepack;
 
-import brobotato.adventurepack.block.ModBlocks;
-import brobotato.adventurepack.crafting.ModCrafting;
-import brobotato.adventurepack.item.ModItems;
+import brobotato.adventurepack.config.Config;
+import brobotato.adventurepack.item.ModItemGroup;
+import brobotato.adventurepack.proxy.ClientProxy;
 import brobotato.adventurepack.proxy.CommonProxy;
-import net.minecraft.block.Block;
-import net.minecraft.item.Item;
-import net.minecraft.item.crafting.IRecipe;
-import net.minecraftforge.client.event.ModelRegistryEvent;
-import net.minecraftforge.event.RegistryEvent;
+import brobotato.adventurepack.proxy.IProxy;
+import net.minecraft.item.ItemGroup;
+import net.minecraftforge.client.model.obj.OBJLoader;
+import net.minecraftforge.fml.DistExecutor;
+import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.SidedProxy;
-import net.minecraftforge.fml.common.event.FMLInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.config.ModConfig;
 
-@Mod(modid = AdventurePack.modId, name = AdventurePack.name, version = AdventurePack.version)
+
+@Mod(AdventurePack.modId)
 
 public class AdventurePack {
-    public static final String modId = "adventurepack";
-    public static final String name = "Adventure Pack";
-    public static final String version = "1.6.0";
 
-    @SidedProxy(serverSide = "brobotato.adventurepack.proxy.CommonProxy", clientSide = "brobotato.adventurepack.proxy.ClientProxy")
-    public static CommonProxy proxy;
 
-    @Mod.Instance(modId)
     public static AdventurePack instance;
+    public static IProxy proxy;
 
-    @Mod.EventHandler
-    public void preInit(FMLPreInitializationEvent event) {
-        System.out.println(name + " is loading!");
-    }
+    public static final String modId = "adventurepack";
 
-    @Mod.EventHandler
-    public void init(FMLInitializationEvent event) {
-        proxy.init(event);
-    }
+    public static final ItemGroup ADVENTURE_PACK = new ModItemGroup("adventure_pack");
 
-    @Mod.EventHandler
-    public void postInit(FMLPostInitializationEvent event) {
-
-    }
-
-    @Mod.EventBusSubscriber
-    public static class RegistrationHandler {
-        @SubscribeEvent
-        public static void registerItems(RegistryEvent.Register<Item> event) {
-            ModItems.register(event.getRegistry());
-            ModBlocks.registerItemBlocks(event.getRegistry());
-        }
-
-        @SubscribeEvent
-        public static void registerModels(ModelRegistryEvent event) {
-            ModItems.registerModels();
-            ModBlocks.registerModels();
-        }
-
-        @SubscribeEvent
-        public static void registerBlocks(RegistryEvent.Register<Block> event) {
-            ModBlocks.register(event.getRegistry());
-        }
-
-        @SubscribeEvent
-        public static void registerRecipes(RegistryEvent.Register<IRecipe> event) {
-            ModCrafting.register(event.getRegistry());
-        }
+    public AdventurePack() {
+        instance = this;
+        proxy = DistExecutor.runForDist(() -> ClientProxy::new, () -> CommonProxy::new);
+        proxy.registerHandlers();
+        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, Config.COMMON_SPEC);
+        ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, Config.CLIENT_SPEC);
+        OBJLoader.INSTANCE.addDomain(AdventurePack.modId);
     }
 
 }

@@ -1,0 +1,8 @@
+modLoader="javafml"
+loaderVersion="[25,)"
+[[mods]]
+modId="adventurepack"
+version="1.13.2-1.0"
+name="Adventure Tools"
+authors="Brobotato"
+description='''Adds adventure themed items aimed at making the game less tedious.'''

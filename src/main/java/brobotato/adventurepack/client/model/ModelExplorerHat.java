@@ -1,7 +1,7 @@
-package brobotato.adventurepack.item.armor;
+package brobotato.adventurepack.client.model;
 
-import net.minecraft.client.model.ModelBiped;
-import net.minecraft.client.model.ModelRenderer;
+import net.minecraft.client.renderer.entity.model.ModelBiped;
+import net.minecraft.client.renderer.entity.model.ModelRenderer;
 import net.minecraft.entity.Entity;
 
 public class ModelExplorerHat extends ModelBiped {
