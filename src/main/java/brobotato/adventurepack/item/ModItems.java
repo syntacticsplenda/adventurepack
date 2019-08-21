@@ -2,15 +2,16 @@ package brobotato.adventurepack.item;
 
 
 import brobotato.adventurepack.AdventurePack;
-import brobotato.adventurepack.config.Config;
 import brobotato.adventurepack.item.armor.ItemExplorerHat;
 import brobotato.adventurepack.item.armor.ItemMiningHelm;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.IForgeRegistry;
 
+@Mod.EventBusSubscriber(modid = AdventurePack.modId, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class ModItems {
     public static final Item escapeRope = new ItemRope(defaultBuilder()).setRegistryName(AdventurePack.modId, "escape_rope");
     public static final Item flashlight = new ItemFlashlight(unstackable()).setRegistryName(AdventurePack.modId, "flashlight");
@@ -21,16 +22,11 @@ public class ModItems {
     @SubscribeEvent
     public static void registerItems(RegistryEvent.Register<Item> evt) {
         IForgeRegistry<Item> registry = evt.getRegistry();
-        if (Config.COMMON.ropeEnabled.get())
-            registry.register(escapeRope);
-        if (Config.COMMON.flashlightEnabled.get())
-            registry.register(flashlight);
-        if (Config.COMMON.lanternEnabled.get())
-            registry.register(lantern);
-        if (Config.COMMON.helmetEnabled.get())
-            registry.register(miningHelm);
-        if (Config.COMMON.hatEnabled.get())
-            registry.register(explorerHat);
+        registry.register(escapeRope);
+        registry.register(flashlight);
+        registry.register(lantern);
+        registry.register(miningHelm);
+        registry.register(explorerHat);
     }
 
     // thanks botania for these

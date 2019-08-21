@@ -8,7 +8,7 @@ import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 
 @Mod.EventBusSubscriber(Dist.CLIENT)
-public class ClientProxy implements IProxy{
+public class ClientProxy implements IProxy {
 
     public void registerHandlers() {
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::clientSetup);

@@ -1,15 +1,21 @@
 package brobotato.adventurepack.block.tileentity;
 
+import brobotato.adventurepack.AdventurePack;
 import brobotato.adventurepack.block.ModBlocks;
 import net.minecraft.init.Blocks;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.ITickable;
 import net.minecraft.world.World;
+import net.minecraftforge.registries.ObjectHolder;
 
 public class TileEntityLight extends TileEntity implements ITickable {
 
+    @ObjectHolder(AdventurePack.modId + ":" + "tile_entity_light")
+    public static TileEntityType<TileEntityLight> TYPE;
+
     public TileEntityLight() {
-        super(ModBlocks.tileEntityLight);
+        super(TYPE);
     }
 
     @Override

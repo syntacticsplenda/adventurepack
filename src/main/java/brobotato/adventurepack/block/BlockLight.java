@@ -13,8 +13,8 @@ import net.minecraft.world.IBlockReader;
 
 public class BlockLight extends BlockBase {
 
-    public BlockLight(String name, Properties properties) {
-        super(name, properties);
+    public BlockLight(Properties builder) {
+        super(builder);
     }
 
     @Override
