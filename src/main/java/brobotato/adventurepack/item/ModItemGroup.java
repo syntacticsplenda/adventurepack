@@ -31,12 +31,7 @@ public class ModItemGroup extends ItemGroup {
         addItem(ModItems.miningHelm);
         addItem(ModItems.lantern);
     }
-
-    @Override
-    public ResourceLocation getTabsImage() {
-        return new ResourceLocation(AdventurePack.modId, "textures/adventurepack.png");
-    }
-
+    
     private void addItem(IItemProvider item) {
         item.asItem().fillItemGroup(this, list);
     }
