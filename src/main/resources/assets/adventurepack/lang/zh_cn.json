@@ -1,10 +1,8 @@
 {
-"item.adventurepack.escape_rope": "逃生绳",
-"item.adventurepack.flashlight": "手电筒",
-"item.adventurepack.lantern": "末影提灯",
-
-"item.adventurepack.mining_helmet": "矿工头盔",
-"item.adventurepack.explorer_hat": "探险帽",
-
-"itemGroup.adventure_pack": "Adventure Pack"
+  "item.adventurepack.escape_rope": "逃生绳",
+  "item.adventurepack.flashlight": "手电筒",
+  "item.adventurepack.lantern": "末影提灯",
+  "item.adventurepack.mining_helmet": "矿工头盔",
+  "item.adventurepack.explorer_hat": "探险帽",
+  "itemGroup.adventure_pack": "Adventure Pack"
 }

@@ -12,7 +12,7 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.IForgeRegistry;
 
 @Mod.EventBusSubscriber(modid = AdventurePack.modId, bus = Mod.EventBusSubscriber.Bus.MOD)
-public class        ModItems {
+public class ModItems {
     public static final Item escapeRope = new ItemRope(defaultBuilder()).setRegistryName(AdventurePack.modId, "escape_rope");
     public static final Item flashlight = new ItemFlashlight(unstackable()).setRegistryName(AdventurePack.modId, "flashlight");
     public static final Item lantern = new ItemLantern(unstackable()).setRegistryName(AdventurePack.modId, "lantern");

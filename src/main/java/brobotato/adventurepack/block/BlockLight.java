@@ -20,6 +20,7 @@ public class BlockLight extends BlockBase {
     public TileEntity createTileEntity(BlockState state, IBlockReader world) {
         return new TileEntityLight();
     }
+
     @Override
     public boolean hasTileEntity(BlockState state) {
         return true;

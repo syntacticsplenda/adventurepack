@@ -30,13 +30,13 @@ public class ItemRope extends ItemBase {
         if (Config.COMMON.instantRope.get()) {
             teleportUser(stack, world, player);
         }
-        return ActionResult.newResult(ActionResultType.SUCCESS.SUCCESS, stack);
+        return ActionResult.newResult(ActionResultType.SUCCESS, stack);
     }
 
     @Nonnull
     @Override
     public UseAction getUseAction(ItemStack stack) {
-        return UseAction.BOW.BOW;
+        return UseAction.BOW;
     }
 
     @Override

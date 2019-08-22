@@ -6,11 +6,9 @@ import net.minecraft.client.renderer.entity.model.BipedModel;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.inventory.EquipmentSlotType;
-import net.minecraft.item.DyeableArmorItem;
-import net.minecraft.item.IArmorMaterial;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
+import net.minecraft.item.*;
 import net.minecraft.item.crafting.Ingredient;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.SoundEvents;
@@ -20,7 +18,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 
 import javax.annotation.Nonnull;
 
-public class ItemExplorerHat extends DyeableArmorItem {
+public class ItemExplorerHat extends ArmorItem implements IDyeableArmorItem {
 
     public static final IArmorMaterial explorerArmorMaterial = new IArmorMaterial() {
         private final int[] damageReduction = {2, 2, 2, 2};
@@ -80,6 +78,6 @@ public class ItemExplorerHat extends DyeableArmorItem {
     @Nonnull
     @Override
     public final String getArmorTexture(ItemStack stack, Entity entity, EquipmentSlotType slot, String type) {
-        return AdventurePack.modId + ":" + "/textures/models/armor/explorer_layer_1.png";
+        return type == null ? AdventurePack.modId + ":" + "/textures/models/armor/explorer_layer_1.png" : AdventurePack.modId + ":" + "/textures/models/armor/explorer_layer_1_overlay.png";
     }
 }

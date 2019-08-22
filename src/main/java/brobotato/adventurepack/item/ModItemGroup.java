@@ -1,11 +1,9 @@
 package brobotato.adventurepack.item;
 
-import brobotato.adventurepack.AdventurePack;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IItemProvider;
 import net.minecraft.util.NonNullList;
-import net.minecraft.util.ResourceLocation;
 
 import javax.annotation.Nonnull;
 
@@ -30,11 +28,6 @@ public class ModItemGroup extends ItemGroup {
         addItem(ModItems.flashlight);
         addItem(ModItems.miningHelm);
         addItem(ModItems.lantern);
-    }
-
-    @Override
-    public ResourceLocation getTabsImage() {
-        return new ResourceLocation(AdventurePack.modId, "textures/adventurepack.png");
     }
 
     private void addItem(IItemProvider item) {
