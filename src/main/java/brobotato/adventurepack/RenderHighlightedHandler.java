@@ -2,7 +2,7 @@ package brobotato.adventurepack;
 
 import brobotato.adventurepack.item.ItemLantern;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 
 public class RenderHighlightedHandler {
 

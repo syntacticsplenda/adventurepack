@@ -1,18 +1,13 @@
 package brobotato.adventurepack.proxy;
 
-import net.minecraft.client.model.ModelBiped;
-import net.minecraft.item.Item;
-import net.minecraftforge.fml.common.event.FMLInitializationEvent;
+import net.minecraft.client.renderer.entity.model.BipedModel;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.fml.common.Mod;
 
-public class CommonProxy {
+@Mod.EventBusSubscriber(Dist.DEDICATED_SERVER)
+public class CommonProxy implements IProxy {
 
-    public void registerItemRenderer(Item item, int meta, String id) {
-    }
-
-    public void init(FMLInitializationEvent e) {
-    }
-
-    public ModelBiped getArmorModel(String type) {
+    public BipedModel getArmorModel(String type) {
         return null;
     }
 }

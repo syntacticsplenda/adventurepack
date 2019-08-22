@@ -1,0 +1,12 @@
+modLoader="javafml"
+loaderVersion="[25,)"
+issueTrackerURL="https://github.com/brobotato/adventurepack/issues"
+authors="Brobotato"
+
+[[mods]]
+modId="adventurepack"
+version="1.14.4-1.0"
+displayName="Adventure Tools"
+description='''
+Adds adventure themed items aimed at making the game less tedious.
+'''
