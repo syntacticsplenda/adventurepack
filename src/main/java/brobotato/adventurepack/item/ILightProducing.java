@@ -2,57 +2,54 @@ package brobotato.adventurepack.item;
 
 import brobotato.adventurepack.block.ModBlocks;
 import brobotato.adventurepack.config.Config;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagInt;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.IntNBT;
 import net.minecraft.util.ActionResult;
-import net.minecraft.util.EnumActionResult;
-import net.minecraft.util.EnumHand;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.RayTraceFluidMode;
-import net.minecraft.util.math.RayTraceResult;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.ActionResultType;
+import net.minecraft.util.Hand;
+import net.minecraft.util.math.*;
 import net.minecraft.world.World;
 
 public interface ILightProducing {
 
-    default ActionResult<ItemStack> toggleLight(EntityPlayer playerIn, EnumHand handIn){
+    default ActionResult<ItemStack> toggleLight(PlayerEntity playerIn, Hand handIn) {
         ItemStack itemStack = playerIn.getHeldItem(handIn);
         if (!itemStack.hasTag()) {
             itemStack.getOrCreateTag();
-            NBTTagCompound tag = new NBTTagCompound();
-            tag.setTag("on", new NBTTagInt(1));
+            CompoundNBT tag = new CompoundNBT();
+            tag.put("on", new IntNBT(1));
             itemStack.setTag(tag);
         }
         if (itemStack.getTag().getInt("on") == 1) {
-            NBTTagCompound tag = new NBTTagCompound();
-            tag.setTag("on", new NBTTagInt(0));
+            CompoundNBT tag = new CompoundNBT();
+            tag.put("on", new IntNBT(0));
             itemStack.setTag(tag);
         } else if (itemStack.getTag().getInt("on") == 0) {
-            NBTTagCompound tag = new NBTTagCompound();
-            tag.setTag("on", new NBTTagInt(1));
+            CompoundNBT tag = new CompoundNBT();
+            tag.put("on", new IntNBT(1));
             itemStack.setTag(tag);
         }
-        return new ActionResult<ItemStack>(EnumActionResult.PASS, playerIn.getHeldItem(handIn));
+        return new ActionResult<ItemStack>(ActionResultType.PASS, playerIn.getHeldItem(handIn));
     }
 
-    default RayTraceResult rayTrace(double blockReachDistance, float partialTicks, EntityPlayer player) {
+    default BlockRayTraceResult rayTrace(double blockReachDistance, float partialTicks, PlayerEntity player) {
         Vec3d vec3d = new Vec3d(player.getPosition().getX(), player.getPosition().getY() + player.getEyeHeight(), player.getPosition().getZ());
         Vec3d vec3d1 = player.getLook(partialTicks);
         Vec3d vec3d2 = vec3d.add(vec3d1.x * blockReachDistance, vec3d1.y * blockReachDistance, vec3d1.z * blockReachDistance);
-        return player.world.rayTraceBlocks(vec3d, vec3d2, RayTraceFluidMode.NEVER, true, true);
+        return player.world.rayTraceBlocks(new RayTraceContext(vec3d, vec3d2, RayTraceContext.BlockMode.OUTLINE, RayTraceContext.FluidMode.NONE, player));
     }
 
-    default void createLight(ItemStack itemStack, World world, EntityPlayer player) {
+    default void createLight(ItemStack itemStack, World world, PlayerEntity player) {
         if (!world.isRemote) {
             if (itemStack.hasTag() && itemStack.getTag().getInt("on") == 1) return;
-            RayTraceResult lookPos = rayTrace(Config.COMMON.helmetRange.get(), 1.0f, player);
+            BlockRayTraceResult lookPos = rayTrace(Config.COMMON.helmetRange.get(), 1.0f, player);
             BlockPos pos;
-            if (lookPos == null) return;
-            if (lookPos.sideHit != null) pos = lookPos.getBlockPos().offset(lookPos.sideHit);
-            else pos = lookPos.getBlockPos();
-            double vecDistance = Math.pow(lookPos.hitVec.squareDistanceTo(player.posX, player.posY, player.posZ), 0.5);
+            if (lookPos.getType() == RayTraceResult.Type.MISS) return;
+            if (lookPos.getType() == RayTraceResult.Type.BLOCK) pos = lookPos.getPos().offset(lookPos.getFace());
+            else pos = lookPos.getPos();
+            double vecDistance = Math.pow(lookPos.getPos().distanceSq(player.getPosition()), 0.5);
             if (vecDistance <= Config.COMMON.helmetRange.get()) {
                 if (world.getBlockState(pos).getBlock().isAir(world.getBlockState(pos), world, pos)) {
                     player.world.setBlockState(pos, ModBlocks.blockLight.getDefaultState(), 2);

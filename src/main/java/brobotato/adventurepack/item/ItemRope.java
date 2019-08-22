@@ -2,15 +2,15 @@ package brobotato.adventurepack.item;
 
 import brobotato.adventurepack.config.Config;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.EnumAction;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagInt;
+import net.minecraft.item.UseAction;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.IntNBT;
 import net.minecraft.util.ActionResult;
-import net.minecraft.util.EnumActionResult;
-import net.minecraft.util.EnumHand;
+import net.minecraft.util.ActionResultType;
+import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
@@ -24,19 +24,19 @@ public class ItemRope extends ItemBase {
     }
 
     @Override
-    public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, EnumHand hand) {
+    public ActionResult<ItemStack> onItemRightClick(World world, PlayerEntity player, Hand hand) {
         ItemStack stack = player.getHeldItem(hand);
         player.setActiveHand(hand);
         if (Config.COMMON.instantRope.get()) {
             teleportUser(stack, world, player);
         }
-        return ActionResult.newResult(EnumActionResult.SUCCESS, stack);
+        return ActionResult.newResult(ActionResultType.SUCCESS.SUCCESS, stack);
     }
 
     @Nonnull
     @Override
-    public EnumAction getUseAction(ItemStack stack) {
-        return EnumAction.BOW;
+    public UseAction getUseAction(ItemStack stack) {
+        return UseAction.BOW.BOW;
     }
 
     @Override
@@ -46,9 +46,9 @@ public class ItemRope extends ItemBase {
     }
 
     @Override
-    public void onPlayerStoppedUsing(ItemStack stack, World world, EntityLivingBase entity, int timeLeft) {
+    public void onPlayerStoppedUsing(ItemStack stack, World world, LivingEntity entity, int timeLeft) {
 
-        if (!(entity instanceof EntityPlayer)) {
+        if (!(entity instanceof PlayerEntity)) {
             return;
         }
 
@@ -63,7 +63,7 @@ public class ItemRope extends ItemBase {
         }
 
         if (f == 6f && !Config.COMMON.instantRope.get()) {
-            teleportUser(stack, world, (EntityPlayer) entity);
+            teleportUser(stack, world, (PlayerEntity) entity);
         }
     }
 
@@ -75,17 +75,17 @@ public class ItemRope extends ItemBase {
                 if (!itemStack.hasTag()) {
                     itemStack.getOrCreateTag();
                 }
-                NBTTagCompound tag = new NBTTagCompound();
-                tag.setTag("x", new NBTTagInt(pos.getX()));
-                tag.setTag("y", new NBTTagInt(pos.getY()));
-                tag.setTag("z", new NBTTagInt(pos.getZ()));
-                tag.setTag("dim", new NBTTagInt(world.getDimension().getType().getId()));
+                CompoundNBT tag = new CompoundNBT();
+                tag.put("x", new IntNBT(pos.getX()));
+                tag.put("y", new IntNBT(pos.getY()));
+                tag.put("z", new IntNBT(pos.getZ()));
+                tag.put("dim", new IntNBT(world.getDimension().getType().getId()));
                 itemStack.setTag(tag);
             }
         }
     }
 
-    public void teleportUser(ItemStack stack, World world, EntityPlayer player) {
+    public void teleportUser(ItemStack stack, World world, PlayerEntity player) {
         BlockPos currentPos = player.getPosition();
         if (!stack.hasTag()) {
             if (Config.COMMON.ropeSpawn.get()) {

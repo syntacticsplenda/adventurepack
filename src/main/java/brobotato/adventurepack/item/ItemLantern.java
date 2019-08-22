@@ -1,13 +1,13 @@
 package brobotato.adventurepack.item;
 
 import brobotato.adventurepack.config.Config;
+import com.mojang.blaze3d.platform.GlStateManager;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.renderer.BufferBuilder;
-import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
@@ -24,7 +24,7 @@ public class ItemLantern extends ItemBase {
     public static void highlightHandler(RenderWorldLastEvent evt) {
         Minecraft mc = Minecraft.getInstance();
 
-        EntityPlayerSP player = mc.player;
+        PlayerEntity player = mc.player;
         if (player.inventory.hasItemStack(new ItemStack(ModItems.lantern))) {
             ArrayList<BlockPos> nearbyOres = nearbyOre();
             for (BlockPos orePos : nearbyOres) {
@@ -37,7 +37,7 @@ public class ItemLantern extends ItemBase {
     public static void highlightBlock(BlockPos hiPos, float ticks) {
         Minecraft mc = Minecraft.getInstance();
 
-        EntityPlayerSP player = mc.player;
+        PlayerEntity player = mc.player;
 
         double doubleX = player.lastTickPosX + (player.posX - player.lastTickPosX) * ticks;
         double doubleY = player.lastTickPosY + (player.posY - player.lastTickPosY) * ticks;
@@ -55,7 +55,7 @@ public class ItemLantern extends ItemBase {
         GlStateManager.translated(-doubleX, -doubleY, -doubleZ);
 
         GlStateManager.disableDepthTest();
-        GlStateManager.disableTexture2D();
+        GlStateManager.disableTexture();
 
         Tessellator tessellator = Tessellator.getInstance();
         BufferBuilder buffer = tessellator.getBuffer();
@@ -104,14 +104,14 @@ public class ItemLantern extends ItemBase {
 
         tessellator.draw();
 
-        GlStateManager.enableTexture2D();
+        GlStateManager.enableTexture();
         GlStateManager.popMatrix();
     }
 
     private static ArrayList<BlockPos> nearbyOre() {
         ArrayList<BlockPos> oreList = new ArrayList<>();
         Minecraft mc = Minecraft.getInstance();
-        EntityPlayerSP player = mc.player;
+        PlayerEntity player = mc.player;
         BlockPos currentPos = player.getPosition();
         int radius = Math.min(Config.COMMON.lanternMax.get(), Config.CLIENT.lanternRange.get());
         if (radius == 0) radius = 4;

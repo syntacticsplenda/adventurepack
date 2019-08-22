@@ -3,15 +3,14 @@ package brobotato.adventurepack.item.armor;
 import brobotato.adventurepack.AdventurePack;
 import brobotato.adventurepack.client.model.ModelMiningHelm;
 import brobotato.adventurepack.item.ILightProducing;
-import net.minecraft.client.renderer.entity.model.ModelBiped;
+import net.minecraft.client.renderer.entity.model.BipedModel;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.SoundEvents;
-import net.minecraft.inventory.EntityEquipmentSlot;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.inventory.EquipmentSlotType;
+import net.minecraft.item.ArmorItem;
 import net.minecraft.item.IArmorMaterial;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.*;
@@ -23,18 +22,18 @@ import net.minecraftforge.registries.ForgeRegistries;
 import javax.annotation.Nonnull;
 
 
-public class ItemMiningHelm extends ItemArmor implements ILightProducing {
+public class ItemMiningHelm extends ArmorItem implements ILightProducing {
 
     public static final IArmorMaterial miningArmorMaterial = new IArmorMaterial() {
         private final int[] damageReduction = {1, 1, 1, 1};
 
         @Override
-        public int getDurability(EntityEquipmentSlot slotIn) {
+        public int getDurability(EquipmentSlotType slotIn) {
             return 190;
         }
 
         @Override
-        public int getDamageReductionAmount(EntityEquipmentSlot slotIn) {
+        public int getDamageReductionAmount(EquipmentSlotType slotIn) {
             return damageReduction[slotIn.getIndex()];
         }
 
@@ -65,22 +64,22 @@ public class ItemMiningHelm extends ItemArmor implements ILightProducing {
         }
     };
 
-    public final EntityEquipmentSlot type;
+    public final EquipmentSlotType type;
 
-    protected ModelBiped model = new ModelMiningHelm(1.0f);
+    protected BipedModel model = new ModelMiningHelm(1.0f);
 
-    public ItemMiningHelm(EntityEquipmentSlot type, IArmorMaterial mat, Properties props) {
+    public ItemMiningHelm(EquipmentSlotType type, IArmorMaterial mat, Properties props) {
         super(mat, type, props);
         this.type = type;
     }
 
     @Override
-    public void onArmorTick(ItemStack itemStack, World world, EntityPlayer player) {
+    public void onArmorTick(ItemStack itemStack, World world, PlayerEntity player) {
         createLight(itemStack, world, player);
     }
 
     @Override
-    public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn) {
+    public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn) {
         if (!playerIn.isSneaking()) super.onItemRightClick(worldIn, playerIn, handIn);
         return toggleLight(playerIn, handIn);
     }
@@ -88,13 +87,13 @@ public class ItemMiningHelm extends ItemArmor implements ILightProducing {
 
     @Override
     @OnlyIn(Dist.CLIENT)
-    public ModelBiped getArmorModel(EntityLivingBase entityLiving, ItemStack itemStack, EntityEquipmentSlot armorSlot, ModelBiped original) {
+    public BipedModel getArmorModel(LivingEntity entityLiving, ItemStack itemStack, EquipmentSlotType armorSlot, BipedModel original) {
         return model;
     }
 
     @Nonnull
     @Override
-    public final String getArmorTexture(ItemStack stack, Entity entity, EntityEquipmentSlot slot, String type) {
+    public final String getArmorTexture(ItemStack stack, Entity entity, EquipmentSlotType slot, String type) {
         return AdventurePack.modId + ":" + "/textures/models/armor/mining_layer_1.png";
     }
 

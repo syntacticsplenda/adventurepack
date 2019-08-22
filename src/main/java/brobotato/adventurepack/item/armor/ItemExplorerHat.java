@@ -2,37 +2,36 @@ package brobotato.adventurepack.item.armor;
 
 import brobotato.adventurepack.AdventurePack;
 import brobotato.adventurepack.client.model.ModelExplorerHat;
-import net.minecraft.client.renderer.entity.model.ModelBiped;
+import net.minecraft.client.renderer.entity.model.BipedModel;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.init.SoundEvents;
-import net.minecraft.inventory.EntityEquipmentSlot;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.inventory.EquipmentSlotType;
+import net.minecraft.item.DyeableArmorItem;
 import net.minecraft.item.IArmorMaterial;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemArmorDyeable;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
+import net.minecraft.util.SoundEvents;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.registries.ForgeRegistries;
 
 import javax.annotation.Nonnull;
 
-public class ItemExplorerHat extends ItemArmorDyeable {
+public class ItemExplorerHat extends DyeableArmorItem {
 
     public static final IArmorMaterial explorerArmorMaterial = new IArmorMaterial() {
         private final int[] damageReduction = {2, 2, 2, 2};
 
         @Override
-        public int getDurability(EntityEquipmentSlot slotIn) {
+        public int getDurability(EquipmentSlotType slotIn) {
             return 133;
         }
 
         @Override
-        public int getDamageReductionAmount(EntityEquipmentSlot slotIn) {
+        public int getDamageReductionAmount(EquipmentSlotType slotIn) {
             return damageReduction[slotIn.getIndex()];
         }
 
@@ -63,24 +62,24 @@ public class ItemExplorerHat extends ItemArmorDyeable {
         }
     };
 
-    protected ModelBiped model = new ModelExplorerHat(1.0f);
+    protected BipedModel model = new ModelExplorerHat(1.0f);
 
-    public final EntityEquipmentSlot type;
+    public final EquipmentSlotType type;
 
-    public ItemExplorerHat(EntityEquipmentSlot type, IArmorMaterial mat, Properties props) {
+    public ItemExplorerHat(EquipmentSlotType type, IArmorMaterial mat, Properties props) {
         super(mat, type, props);
         this.type = type;
     }
 
     @Override
     @OnlyIn(Dist.CLIENT)
-    public ModelBiped getArmorModel(EntityLivingBase entityLiving, ItemStack itemStack, EntityEquipmentSlot armorSlot, ModelBiped original) {
+    public BipedModel getArmorModel(LivingEntity entityLiving, ItemStack itemStack, EquipmentSlotType armorSlot, BipedModel original) {
         return model;
     }
 
     @Nonnull
     @Override
-    public final String getArmorTexture(ItemStack stack, Entity entity, EntityEquipmentSlot slot, String type) {
+    public final String getArmorTexture(ItemStack stack, Entity entity, EquipmentSlotType slot, String type) {
         return AdventurePack.modId + ":" + "/textures/models/armor/explorer_layer_1.png";
     }
 }
