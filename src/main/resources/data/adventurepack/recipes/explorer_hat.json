@@ -10,11 +10,11 @@
       "item": "minecraft:leather"
     },
     "W": {
-      "item": "minecraft:wool",
+      "item": "minecraft:white_wool",
       "data": 32767
     },
     "C": {
-      "item": "minecraft:carpet",
+      "item": "minecraft:white_carpet",
       "data": 32767
     }
   },
