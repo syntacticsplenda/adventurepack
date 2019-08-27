@@ -40,9 +40,8 @@ public class ItemLantern extends ItemBase {
         PlayerEntity player = mc.player;
 
         double doubleX = player.lastTickPosX + (player.posX - player.lastTickPosX) * ticks;
-        double doubleY = player.lastTickPosY + (player.posY - player.lastTickPosY) * ticks;
+        double doubleY = player.lastTickPosY + (double) player.getEyeHeight() + (player.posY - player.lastTickPosY) * ticks;
         double doubleZ = player.lastTickPosZ + (player.posZ - player.lastTickPosZ) * ticks;
-
         GlStateManager.pushMatrix();
 
         float r = 0.8f;
