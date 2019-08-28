@@ -2,7 +2,7 @@
   "parent": "minecraft:recipes/root",
   "rewards": {
     "recipes": [
-      "adventurepack:lantern"
+      "adventurepack:ender_lantern"
     ]
   },
   "criteria": {
@@ -19,7 +19,7 @@
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "adventurepack:lantern"
+        "recipe": "adventurepack:ender_lantern"
       }
     }
   },

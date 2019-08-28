@@ -1,8 +1,8 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    " L ",
-    "LWL",
+    "L L",
+    "WLW",
     "CCC"
   ],
   "key": {
@@ -17,6 +17,6 @@
     }
   },
   "result": {
-    "item": "adventurepack:explorer_hat"
+    "item": "adventurepack:cowboy_hat"
   }
 }
