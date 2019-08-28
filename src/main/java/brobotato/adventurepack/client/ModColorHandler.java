@@ -25,5 +25,10 @@ public class ModColorHandler {
                 return tintIndex > 0 ? -1 : ((ItemArmor) stack.getItem()).getColor(stack);
             }
         }, ModItems.explorerHat);
+        itemColors.registerItemColorHandler(new IItemColor() {
+            public int colorMultiplier(ItemStack stack, int tintIndex) {
+                return tintIndex > 0 ? -1 : ((ItemArmor) stack.getItem()).getColor(stack);
+            }
+        }, ModItems.cowboyHat);
     }
 }

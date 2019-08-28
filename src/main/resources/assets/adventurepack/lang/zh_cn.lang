@@ -3,11 +3,14 @@
 item.escape_rope.name=逃生绳
 item.flashlight.name=手电筒
 item.lantern.name=末影提灯
+item.mining_lantern.name=采矿提灯
+
 
 #armor
 
 item.mining_helmet.name=矿工头盔
 item.explorer_hat.name=探险帽
+item.cowboy_hat.name=牛仔帽
 
 #config
 

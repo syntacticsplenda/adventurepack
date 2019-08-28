@@ -34,6 +34,10 @@ public class ModConfig {
     public static int helmetRange = 7;
     @Config.Comment("If the Explorer Hat is enabled.")
     public static boolean hatEnabled = true;
+    @Config.Comment("If the Cowboy Hat is enabled.")
+    public static boolean cowboyEnabled = true;
+    @Config.Comment("If the Mining Lantern is enabled.")
+    public static boolean miningEnabled = true;
 
     public static class Client {
         @Config.Comment("The radius of the Ender Lantern. 0 = default (4)")
