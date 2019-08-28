@@ -10,22 +10,25 @@ import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
 import org.lwjgl.opengl.GL11;
 
 import java.util.ArrayList;
 
-public class ItemLantern extends ItemBase {
+public class ItemEnderLantern extends ItemBase {
 
-    public ItemLantern(Properties properties) {
+    public ItemEnderLantern(Properties properties) {
         super(properties);
     }
 
+    @OnlyIn(Dist.CLIENT)
     public static void highlightHandler(RenderWorldLastEvent evt) {
         Minecraft mc = Minecraft.getInstance();
 
         PlayerEntity player = mc.player;
-        if (player.inventory.hasItemStack(new ItemStack(ModItems.lantern))) {
+        if (player.inventory.hasItemStack(new ItemStack(ModItems.enderLantern)) && mc.gameSettings.thirdPersonView == 0) {
             ArrayList<BlockPos> nearbyOres = nearbyOre();
             for (BlockPos orePos : nearbyOres) {
                 highlightBlock(orePos, evt.getPartialTicks());
@@ -34,15 +37,15 @@ public class ItemLantern extends ItemBase {
     }
 
     // wouldn't have been possible without mcjtylib's highlight functions, thank you
+    @OnlyIn(Dist.CLIENT)
     public static void highlightBlock(BlockPos hiPos, float ticks) {
         Minecraft mc = Minecraft.getInstance();
 
         PlayerEntity player = mc.player;
 
         double doubleX = player.lastTickPosX + (player.posX - player.lastTickPosX) * ticks;
-        double doubleY = player.lastTickPosY + (player.posY - player.lastTickPosY) * ticks;
+        double doubleY = player.lastTickPosY + (double) player.getEyeHeight() + (player.posY - player.lastTickPosY) * ticks;
         double doubleZ = player.lastTickPosZ + (player.posZ - player.lastTickPosZ) * ticks;
-
         GlStateManager.pushMatrix();
 
         float r = 0.8f;
@@ -108,6 +111,7 @@ public class ItemLantern extends ItemBase {
         GlStateManager.popMatrix();
     }
 
+    @OnlyIn(Dist.CLIENT)
     private static ArrayList<BlockPos> nearbyOre() {
         ArrayList<BlockPos> oreList = new ArrayList<>();
         Minecraft mc = Minecraft.getInstance();

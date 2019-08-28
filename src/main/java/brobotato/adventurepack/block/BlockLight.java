@@ -42,9 +42,4 @@ public class BlockLight extends BlockBase {
         return 15;
     }
 
-    @Override
-    public boolean isAir(BlockState state) {
-        return true;
-    }
-
 }

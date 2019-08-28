@@ -51,12 +51,16 @@ public interface ILightProducing {
             else pos = lookPos.getPos();
             double vecDistance = Math.pow(lookPos.getPos().distanceSq(player.getPosition()), 0.5);
             if (vecDistance <= Config.COMMON.helmetRange.get()) {
-                if (world.getBlockState(pos).getBlock().isAir(world.getBlockState(pos), world, pos)) {
-                    player.world.setBlockState(pos, ModBlocks.blockLight.getDefaultState(), 2);
-                } else if (world.getBlockState(pos.add(0, 1, 0)).getBlock().isAir(world.getBlockState(pos.add(0, 1, 0)), world, pos.add(0, 1, 0))) {
-                    player.world.setBlockState(pos.add(0, 1, 0), ModBlocks.blockLight.getDefaultState(), 2);
-                }
+                setBlockToLight(pos, world, player);
             }
+        }
+    }
+
+    default void setBlockToLight(BlockPos pos, World world, PlayerEntity player) {
+        if (world.getBlockState(pos).getBlock().isAir(world.getBlockState(pos), world, pos)) {
+            player.world.setBlockState(pos, ModBlocks.blockLight.getDefaultState(), 2);
+        } else if (world.getBlockState(pos.add(0, 1, 0)).getBlock().isAir(world.getBlockState(pos.add(0, 1, 0)), world, pos.add(0, 1, 0))) {
+            player.world.setBlockState(pos.add(0, 1, 0), ModBlocks.blockLight.getDefaultState(), 2);
         }
     }
 }

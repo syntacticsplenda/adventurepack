@@ -1,6 +1,6 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "adventurepack:items/lantern"
+    "layer0": "adventurepack:items/ender_lantern"
   }
 }

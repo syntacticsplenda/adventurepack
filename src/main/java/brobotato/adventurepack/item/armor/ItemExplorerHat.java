@@ -8,7 +8,6 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.*;
 import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.SoundEvents;
@@ -60,8 +59,6 @@ public class ItemExplorerHat extends ArmorItem implements IDyeableArmorItem {
         }
     };
 
-    protected BipedModel model = new ModelExplorerHat(1.0f);
-
     public final EquipmentSlotType type;
 
     public ItemExplorerHat(EquipmentSlotType type, IArmorMaterial mat, Properties props) {
@@ -72,7 +69,7 @@ public class ItemExplorerHat extends ArmorItem implements IDyeableArmorItem {
     @Override
     @OnlyIn(Dist.CLIENT)
     public BipedModel getArmorModel(LivingEntity entityLiving, ItemStack itemStack, EquipmentSlotType armorSlot, BipedModel original) {
-        return model;
+        return new ModelExplorerHat(1.0f);
     }
 
     @Nonnull

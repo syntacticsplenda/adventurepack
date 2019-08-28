@@ -23,11 +23,13 @@ public class ModItemGroup extends ItemGroup {
     @Override
     public void fill(@Nonnull NonNullList<ItemStack> list) {
         this.list = list;
+        addItem(ModItems.cowboyHat);
         addItem(ModItems.escapeRope);
         addItem(ModItems.explorerHat);
         addItem(ModItems.flashlight);
         addItem(ModItems.miningHelm);
-        addItem(ModItems.lantern);
+        addItem(ModItems.enderLantern);
+        addItem(ModItems.miningLantern);
     }
 
     private void addItem(IItemProvider item) {
