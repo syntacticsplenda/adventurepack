@@ -5,41 +5,38 @@ import brobotato.adventurepack.AdventurePack;
 import brobotato.adventurepack.item.armor.ItemCowboyHat;
 import brobotato.adventurepack.item.armor.ItemExplorerHat;
 import brobotato.adventurepack.item.armor.ItemMiningHelm;
-import net.minecraft.inventory.EquipmentSlotType;
+import brobotato.adventurepack.item.armor.ModArmorMaterial;
+import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.item.Item;
-import net.minecraftforge.event.RegistryEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.registries.IForgeRegistry;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.registry.Registry;
 
-@Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
+
 public class ModItems {
-    public static final Item escapeRope = new ItemRope(defaultBuilder()).setRegistryName(AdventurePack.modId, "escape_rope");
-    public static final Item flashlight = new ItemFlashlight(unstackable()).setRegistryName(AdventurePack.modId, "flashlight");
-    public static final Item miningLantern = new ItemMiningLantern(unstackable()).setRegistryName(AdventurePack.modId, "mining_lantern");
-    public static final Item enderLantern = new ItemEnderLantern(unstackable()).setRegistryName(AdventurePack.modId, "ender_lantern");
-    public static final Item miningHelm = new ItemMiningHelm(EquipmentSlotType.HEAD, ItemMiningHelm.miningArmorMaterial, unstackable()).setRegistryName(AdventurePack.modId, "mining_helmet");
-    public static final Item explorerHat = new ItemExplorerHat(EquipmentSlotType.HEAD, ItemExplorerHat.explorerArmorMaterial, unstackable()).setRegistryName(AdventurePack.modId, "explorer_hat");
-    public static final Item cowboyHat = new ItemCowboyHat(EquipmentSlotType.HEAD, ItemCowboyHat.cowboyArmorMaterial, unstackable()).setRegistryName(AdventurePack.modId, "cowboy_hat");
+    public static final Item escapeRope = new ItemRope(defaultBuilder());
+    public static final Item flashlight = new ItemFlashlight(unstackable());
+    public static final Item miningLantern = new ItemMiningLantern(unstackable());
+    public static final Item enderLantern = new ItemEnderLantern(unstackable());
+    public static final Item miningHelm = new ItemMiningHelm(EquipmentSlot.HEAD, ModArmorMaterial.MINING, unstackable());
+    public static final Item explorerHat = new ItemExplorerHat(EquipmentSlot.HEAD, ModArmorMaterial.EXPLORER, unstackable());
+    public static final Item cowboyHat = new ItemCowboyHat(EquipmentSlot.HEAD, ModArmorMaterial.COWBOY, unstackable());
 
-    @SubscribeEvent
-    public static void registerItems(RegistryEvent.Register<Item> evt) {
-        IForgeRegistry<Item> registry = evt.getRegistry();
-        registry.register(escapeRope);
-        registry.register(flashlight);
-        registry.register(enderLantern);
-        registry.register(miningLantern);
-        registry.register(miningHelm);
-        registry.register(explorerHat);
-        registry.register(cowboyHat);
+    public static void registerItems() {
+        Registry.register(Registry.ITEM, new Identifier(AdventurePack.modId, "escape_rope"), escapeRope);
+        Registry.register(Registry.ITEM, new Identifier(AdventurePack.modId, "flashlight"), flashlight);
+        Registry.register(Registry.ITEM, new Identifier(AdventurePack.modId, "mining_lantern"), miningLantern);
+        Registry.register(Registry.ITEM, new Identifier(AdventurePack.modId, "ender_lantern"), enderLantern);
+        Registry.register(Registry.ITEM, new Identifier(AdventurePack.modId, "mining_helmet"), miningHelm);
+        Registry.register(Registry.ITEM, new Identifier(AdventurePack.modId, "explorer_hat"), explorerHat);
+        Registry.register(Registry.ITEM, new Identifier(AdventurePack.modId, "cowboy_hat"), cowboyHat);
     }
 
     // thanks botania for these
-    public static Item.Properties defaultBuilder() {
-        return new Item.Properties().group(AdventurePack.ADVENTURE_PACK);
+    public static Item.Settings defaultBuilder() {
+        return new Item.Settings().group(AdventurePack.ADVENTURE_PACK);
     }
 
-    private static Item.Properties unstackable() {
-        return defaultBuilder().maxStackSize(1);
+    private static Item.Settings unstackable() {
+        return defaultBuilder().maxCount(1);
     }
 }

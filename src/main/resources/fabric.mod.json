@@ -1,0 +1,26 @@
+{
+  "schemaVersion": 1,
+  "id": "adventurepack",
+  "version": "${version}",
+  "name": "Adventure Tools",
+  "description": "Adds adventure themed items aimed at making the game less tedious.",
+  "authors": [
+    "brobotato"
+  ],
+  "contact": {
+    "homepage": "https://www.curseforge.com/minecraft/mc-mods/adventure-tools",
+    "sources": "https://github.com/brobotato/adventurepack"
+  },
+  "license": "CC0-1.0",
+  "icon": "assets/adventurepack/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "brobotato.adventurepack.AdventurePack"
+    ]
+  },
+  "depends": {
+    "fabricloader": ">=0.4.0",
+    "fabric": "*"
+  }
+}

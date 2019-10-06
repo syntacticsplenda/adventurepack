@@ -1,44 +1,44 @@
 package brobotato.adventurepack.client.model;
 
-import net.minecraft.client.renderer.entity.model.BipedModel;
-import net.minecraft.client.renderer.entity.model.RendererModel;
+import net.minecraft.client.model.Cuboid;
+import net.minecraft.client.render.entity.model.BipedEntityModel;
 import net.minecraft.entity.LivingEntity;
 
 
-public class ModelCowboyHat extends BipedModel {
+public class ModelCowboyHat extends BipedEntityModel {
 
-    public final RendererModel CowboyHat;
+    public final Cuboid CowboyHat;
 
-    private final RendererModel Piece1;
-    private final RendererModel Piece2;
-    private final RendererModel Piece3;
-    private final RendererModel Piece4;
-    private final RendererModel Piece5;
-    private final RendererModel Piece6;
-    private final RendererModel Piece7;
-    private final RendererModel Piece8;
-    private final RendererModel Piece9;
-    private final RendererModel Piece10;
-    private final RendererModel Piece11;
-    private final RendererModel Piece12;
-    private final RendererModel Piece13;
+    private final Cuboid Piece1;
+    private final Cuboid Piece2;
+    private final Cuboid Piece3;
+    private final Cuboid Piece4;
+    private final Cuboid Piece5;
+    private final Cuboid Piece6;
+    private final Cuboid Piece7;
+    private final Cuboid Piece8;
+    private final Cuboid Piece9;
+    private final Cuboid Piece10;
+    private final Cuboid Piece11;
+    private final Cuboid Piece12;
+    private final Cuboid Piece13;
 
     public ModelCowboyHat(float par1) {
         super(par1, 0, 64, 64);
 
-        Piece1 = new RendererModel(this, 24, 53);
-        Piece2 = new RendererModel(this, 42, 42);
-        Piece3 = new RendererModel(this, 42, 42);
-        Piece4 = new RendererModel(this, 44, 44);
-        Piece5 = new RendererModel(this, 44, 44);
-        Piece6 = new RendererModel(this, 0, 54);
-        Piece7 = new RendererModel(this, 0, 51);
-        Piece8 = new RendererModel(this, 0, 54);
-        Piece9 = new RendererModel(this, 0, 51);
-        Piece10 = new RendererModel(this, 10, 32);
-        Piece11 = new RendererModel(this, 42, 32);
-        Piece12 = new RendererModel(this, 42, 32);
-        Piece13 = new RendererModel(this, 43, 32);
+        Piece1 = new Cuboid(this, 24, 53);
+        Piece2 = new Cuboid(this, 42, 42);
+        Piece3 = new Cuboid(this, 42, 42);
+        Piece4 = new Cuboid(this, 44, 44);
+        Piece5 = new Cuboid(this, 44, 44);
+        Piece6 = new Cuboid(this, 0, 54);
+        Piece7 = new Cuboid(this, 0, 51);
+        Piece8 = new Cuboid(this, 0, 54);
+        Piece9 = new Cuboid(this, 0, 51);
+        Piece10 = new Cuboid(this, 10, 32);
+        Piece11 = new Cuboid(this, 42, 32);
+        Piece12 = new Cuboid(this, 42, 32);
+        Piece13 = new Cuboid(this, 43, 32);
         Piece1.addBox(-5F, 0F, -5F, 10, 1, 10);
         Piece2.addBox(-6F, -1F, -5F, 1, 1, 10);
         Piece3.addBox(5F, -1F, -5F, 1, 1, 10);
@@ -53,13 +53,13 @@ public class ModelCowboyHat extends BipedModel {
         Piece12.addBox(0.5F, -5F, -4F, 3, 2, 8);
         Piece13.addBox(-0.5F, -4.5F, -4F, 1, 2, 8);
 
-        CowboyHat = new RendererModel(this, "hat");
+        CowboyHat = new Cuboid(this, "hat");
 
         textureWidth = 64;
         textureHeight = 64;
 
         CowboyHat.setRotationPoint(0F, -6F, 0F);
-        setRotation(CowboyHat, 0F, 0F, 0F);
+        setRotationPoint(CowboyHat, 0F, 0F, 0F);
         CowboyHat.mirror = true;
         CowboyHat.addChild(Piece1);
         CowboyHat.addChild(Piece2);
@@ -76,18 +76,15 @@ public class ModelCowboyHat extends BipedModel {
         CowboyHat.addChild(Piece13);
         CowboyHat.setTextureSize(textureWidth, textureHeight);
 
-        this.bipedHead.addChild(CowboyHat);
+        this.head.addChild(CowboyHat);
     }
 
     public void render(LivingEntity entity, float f, float f1, float f2, float f3, float f4, float f5) {
-        super.render(entity, f, f1, f2, f3, f4, f5);
-        setRotationAngles(entity, f, f1, f2, f3, f4, f5);
+        super.method_17088(entity, f, f1, f2, f3, f4, f5);
+        method_17087(entity, f, f1, f2, f3, f4, f5);
     }
 
-    private void setRotation(RendererModel model, float x, float y, float z) {
-        model.rotateAngleX = x;
-        model.rotateAngleY = y;
-        model.rotateAngleZ = z;
+    private void setRotationPoint(Cuboid cuboid, float x, float y, float z) {
+        cuboid.setRotationPoint(x, y, z);
     }
-
 }
