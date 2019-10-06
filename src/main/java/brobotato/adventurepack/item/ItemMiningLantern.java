@@ -25,7 +25,9 @@ public class ItemMiningLantern extends ItemBase implements ILightProducing {
 
     @Override
     public void createLight(ItemStack itemStack, World world, PlayerEntity player) {
-        BlockPos pos = player.getPosition();
-        setBlockToLight(pos, world, player);
+        if (!world.isRemote) {
+            BlockPos pos = player.getPosition();
+            setBlockToLight(pos, world, player);
+        }
     }
 }
