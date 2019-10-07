@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "L L",
+    "WLW",
+    "CCC"
+  ],
+  "key": {
+    "L": {
+      "item": "minecraft:leather"
+    },
+    "W": {
+      "item": "minecraft:wool",
+      "data": 32767
+    },
+    "C": {
+      "item": "minecraft:carpet",
+      "data": 32767
+    }
+  },
+  "result": {
+    "item": "adventurepack:cowboy_hat"
+  }
+}

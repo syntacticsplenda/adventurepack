@@ -1,5 +1,6 @@
 package brobotato.adventurepack.crafting;
 
+import brobotato.adventurepack.item.armor.ItemCowboyHat;
 import brobotato.adventurepack.item.armor.ItemExplorerHat;
 import com.google.common.collect.Lists;
 import net.minecraft.inventory.InventoryCrafting;
@@ -24,7 +25,7 @@ public class ModArmorDyes extends RecipesArmorDyes {
                 if (itemstack1.getItem() instanceof ItemArmor) {
                     ItemArmor itemarmor = (ItemArmor) itemstack1.getItem();
 
-                    if (itemarmor.getArmorMaterial() != ItemExplorerHat.explorerArmorMaterial || !itemstack.isEmpty()) {
+                    if ((itemarmor.getArmorMaterial() != ItemExplorerHat.explorerArmorMaterial && itemarmor.getArmorMaterial() != ItemCowboyHat.cowboyArmorMaterial) || !itemstack.isEmpty()) {
                         return false;
                     }
 
@@ -60,7 +61,7 @@ public class ModArmorDyes extends RecipesArmorDyes {
                 if (itemstack1.getItem() instanceof ItemArmor) {
                     itemarmor = (ItemArmor) itemstack1.getItem();
 
-                    if (itemarmor.getArmorMaterial() != ItemExplorerHat.explorerArmorMaterial || !itemstack.isEmpty()) {
+                    if ((itemarmor.getArmorMaterial() != ItemExplorerHat.explorerArmorMaterial && itemarmor.getArmorMaterial() != ItemCowboyHat.cowboyArmorMaterial) || !itemstack.isEmpty()) {
                         return ItemStack.EMPTY;
                     }
 

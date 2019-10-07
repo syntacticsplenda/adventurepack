@@ -2,9 +2,11 @@ package brobotato.adventurepack.proxy;
 
 import brobotato.adventurepack.AdventurePack;
 import brobotato.adventurepack.RenderHighlightedHandler;
+import brobotato.adventurepack.item.armor.ModelCowboyHat;
 import brobotato.adventurepack.item.armor.ModelExplorerHat;
 import brobotato.adventurepack.item.armor.ModelMiningHelm;
 import net.minecraft.client.model.ModelBiped;
+import net.minecraft.client.model.ModelCow;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;
 import net.minecraftforge.client.model.ModelLoader;
@@ -17,6 +19,8 @@ public class ClientProxy extends CommonProxy {
     public static final String M_HELM = "MHELM";
     private static final ModelExplorerHat e_hat = new ModelExplorerHat(1.0f);
     public static final String E_HAT = "EHAT";
+    private static final ModelCowboyHat c_hat = new ModelCowboyHat(1.0f);
+    public static final String C_HAT = "CHAT";
 
     @Override
     public ModelBiped getArmorModel(String type) {
@@ -26,6 +30,8 @@ public class ClientProxy extends CommonProxy {
                 return m_helm;
             case E_HAT:
                 return e_hat;
+            case C_HAT:
+                return c_hat;
             default:
                 break;
         }
