@@ -2,7 +2,6 @@ package brobotato.adventurepack.item;
 
 import brobotato.adventurepack.block.ModBlocks;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.IntTag;
@@ -48,7 +47,7 @@ public interface ILightProducing {
         float float_6 = MathHelper.sin(-float_1 * 0.017453292F);
         float float_7 = float_4 * float_5;
         float float_9 = float_3 * float_5;
-        Vec3d vec3d_2 = vec3d_1.add((double)float_7 * blockReachDistance, (double)float_6 * blockReachDistance, (double)float_9 * blockReachDistance);
+        Vec3d vec3d_2 = vec3d_1.add((double) float_7 * blockReachDistance, (double) float_6 * blockReachDistance, (double) float_9 * blockReachDistance);
         return player.world.rayTrace(new RayTraceContext(vec3d_1, vec3d_2, RayTraceContext.ShapeType.OUTLINE, RayTraceContext.FluidHandling.NONE, player));
     }
 

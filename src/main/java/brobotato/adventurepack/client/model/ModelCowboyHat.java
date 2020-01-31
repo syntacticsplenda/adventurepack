@@ -59,7 +59,6 @@ public class ModelCowboyHat extends BipedEntityModel {
         textureHeight = 64;
 
         CowboyHat.setRotationPoint(0F, -6F, 0F);
-        setRotationPoint(CowboyHat, 0F, 0F, 0F);
         CowboyHat.mirror = true;
         CowboyHat.addChild(Piece1);
         CowboyHat.addChild(Piece2);

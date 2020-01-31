@@ -49,7 +49,6 @@ public class ModelExplorerHat extends BipedEntityModel {
         textureHeight = 64;
 
         ExplorerHat.setRotationPoint(0F, -6F, 0F);
-        setRotationPoint(ExplorerHat, 0F, 0F, 0F);
         ExplorerHat.mirror = true;
         ExplorerHat.addChild(Piece1);
         ExplorerHat.addChild(Piece2);
