@@ -1,7 +1,7 @@
 modLoader="javafml"
 loaderVersion="[25,)"
-issueTrackerURL="https://github.com/brobotato/adventurepack/issues"
-authors="Brobotato"
+issueTrackerURL="https://github.com/syntacticsplenda/adventurepack/issues"
+authors="SyntacticSplenda"
 
 [[mods]]
 modId="adventurepack"
