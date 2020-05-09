@@ -5,18 +5,18 @@
   "name": "Adventure Tools",
   "description": "Adds adventure themed items aimed at making the game less tedious.",
   "authors": [
-    "brobotato"
+    "syntacticsplenda"
   ],
   "contact": {
     "homepage": "https://www.curseforge.com/minecraft/mc-mods/adventure-tools",
-    "sources": "https://github.com/brobotato/adventurepack"
+    "sources": "https://github.com/syntacticsplenda/adventurepack"
   },
   "license": "CC0-1.0",
   "icon": "assets/adventurepack/icon.png",
   "environment": "*",
   "entrypoints": {
     "main": [
-      "brobotato.adventurepack.AdventurePack"
+      "syntacticsplenda.adventurepack.AdventurePack"
     ]
   },
   "depends": {
