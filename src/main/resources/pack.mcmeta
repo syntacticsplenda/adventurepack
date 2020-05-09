@@ -1,7 +1,6 @@
 {
-    "pack": {
-        "description": "Adventure Pack resources",
-        "pack_format": 4,
-        "_comment": "Resource files for Adventure Pack."
+    "pack":{
+        "pack_format":4,
+        "description":"Tutorial Mod"
     }
 }

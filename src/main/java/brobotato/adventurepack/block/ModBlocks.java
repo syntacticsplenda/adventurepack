@@ -2,42 +2,24 @@ package brobotato.adventurepack.block;
 
 import brobotato.adventurepack.AdventurePack;
 import brobotato.adventurepack.block.tileentity.TileEntityLight;
-import brobotato.adventurepack.item.ModItems;
+import net.fabricmc.fabric.api.block.FabricBlockSettings;
 import net.minecraft.block.Block;
-import net.minecraft.block.material.Material;
-import net.minecraft.item.BlockItem;
-import net.minecraft.item.Item;
-import net.minecraft.tileentity.TileEntityType;
-import net.minecraftforge.event.RegistryEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.registries.IForgeRegistry;
-import net.minecraftforge.registries.ObjectHolder;
+import net.minecraft.block.Material;
+import net.minecraft.block.entity.BlockEntityType;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.registry.Registry;
 
-@ObjectHolder(AdventurePack.modId)
-@Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
 public final class ModBlocks {
 
-    @ObjectHolder("block_light")
-    public static Block blockLight;
+    public static final Block blockLight = new BlockLight(FabricBlockSettings.of(Material.AIR).build());
+    public static BlockEntityType<TileEntityLight> tileLightEntity;
 
-    @SubscribeEvent
-    public static void registerBlocks(RegistryEvent.Register<Block> evt) {
-        IForgeRegistry<Block> registry = evt.getRegistry();
-        registry.register(new BlockLight(Block.Properties.create(Material.AIR)).setRegistryName(AdventurePack.modId, "block_light"));
+    public static void registerBlocks() {
+        Registry.register(Registry.BLOCK, new Identifier(AdventurePack.modId, "block_light"), blockLight);
     }
 
-    @SubscribeEvent
-    public static void registerItemBlocks(RegistryEvent.Register<Item> evt) {
-        IForgeRegistry<Item> r = evt.getRegistry();
-        Item.Properties props = ModItems.defaultBuilder();
-        r.register(new BlockItem(blockLight, props).setRegistryName(blockLight.getRegistryName()));
-    }
-
-    @SubscribeEvent
-    public static void registerTileEntities(RegistryEvent.Register<TileEntityType<?>> evt) {
-        IForgeRegistry<TileEntityType<?>> registry = evt.getRegistry();
-        registry.register(TileEntityType.Builder.create(TileEntityLight::new, blockLight).build(null).setRegistryName(AdventurePack.modId, "tile_entity_light"));
+    public static void registerTileEntities() {
+        tileLightEntity = Registry.register(Registry.BLOCK_ENTITY, new Identifier(AdventurePack.modId, "tile_entity_light"), BlockEntityType.Builder.create(TileEntityLight::new, blockLight).build(null));
     }
 
 }

@@ -3,15 +3,15 @@ package brobotato.adventurepack.item;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
+import net.minecraft.util.TypedActionResult;
 import net.minecraft.world.World;
 
 
 public class ItemFlashlight extends ItemBase implements ILightProducing {
 
-    public ItemFlashlight(Properties properties) {
-        super(properties);
+    public ItemFlashlight(Settings settings) {
+        super(settings);
     }
 
     @Override
@@ -20,12 +20,13 @@ public class ItemFlashlight extends ItemBase implements ILightProducing {
             return;
         }
         PlayerEntity player = (PlayerEntity) entity;
-        if (!(player.getHeldItemMainhand() == itemStack) && !(player.getHeldItemOffhand() == itemStack)) return;
+        if (!(player.getStackInHand(Hand.MAIN_HAND) == itemStack) && !(player.getStackInHand(Hand.OFF_HAND) == itemStack))
+            return;
         createLight(itemStack, world, player);
     }
 
     @Override
-    public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn) {
+    public TypedActionResult<ItemStack> use(World worldIn, PlayerEntity playerIn, Hand handIn) {
         return toggleLight(playerIn, handIn);
     }
 

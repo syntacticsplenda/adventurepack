@@ -1,0 +1,15 @@
+{
+  "required": true,
+  "package": "brobotato.adventurepack.mixin",
+  "compatibilityLevel": "JAVA_8",
+  "mixins": [
+  ],
+  "client": [
+    "GameRendererMixin",
+    "ItemColorsMixin",
+    "ArmorFeatureRendererMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

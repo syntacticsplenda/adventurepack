@@ -1,37 +1,37 @@
 package brobotato.adventurepack.client.model;
 
-import net.minecraft.client.renderer.entity.model.BipedModel;
-import net.minecraft.client.renderer.entity.model.RendererModel;
+import net.minecraft.client.model.Cuboid;
+import net.minecraft.client.render.entity.model.BipedEntityModel;
 import net.minecraft.entity.LivingEntity;
 
-public class ModelExplorerHat extends BipedModel {
+public class ModelExplorerHat extends BipedEntityModel {
     //fields
-    public RendererModel ExplorerHat;
+    public Cuboid ExplorerHat;
 
-    private final RendererModel Piece1;
-    private final RendererModel Piece2;
-    private final RendererModel Piece3;
-    private final RendererModel Piece4;
-    private final RendererModel Piece5;
-    private final RendererModel Piece6;
-    private final RendererModel Piece7;
-    private final RendererModel Piece8;
-    private final RendererModel Piece9;
-    private final RendererModel Piece10;
+    private final Cuboid Piece1;
+    private final Cuboid Piece2;
+    private final Cuboid Piece3;
+    private final Cuboid Piece4;
+    private final Cuboid Piece5;
+    private final Cuboid Piece6;
+    private final Cuboid Piece7;
+    private final Cuboid Piece8;
+    private final Cuboid Piece9;
+    private final Cuboid Piece10;
 
     public ModelExplorerHat(float par1) {
         super(par1, 0, 64, 64);
 
-        Piece1 = new RendererModel(this, 0, 32);
-        Piece2 = new RendererModel(this, 0, 45);
-        Piece3 = new RendererModel(this, 0, 45);
-        Piece4 = new RendererModel(this, 0, 47);
-        Piece5 = new RendererModel(this, 0, 50);
-        Piece6 = new RendererModel(this, 32, 45);
-        Piece7 = new RendererModel(this, 0, 47);
-        Piece8 = new RendererModel(this, 32, 54);
-        Piece9 = new RendererModel(this, 32, 54);
-        Piece10 = new RendererModel(this, 48, 54);
+        Piece1 = new Cuboid(this, 0, 32);
+        Piece2 = new Cuboid(this, 0, 45);
+        Piece3 = new Cuboid(this, 0, 45);
+        Piece4 = new Cuboid(this, 0, 47);
+        Piece5 = new Cuboid(this, 0, 50);
+        Piece6 = new Cuboid(this, 32, 45);
+        Piece7 = new Cuboid(this, 0, 47);
+        Piece8 = new Cuboid(this, 32, 54);
+        Piece9 = new Cuboid(this, 32, 54);
+        Piece10 = new Cuboid(this, 48, 54);
         Piece1.addBox(-7F, 0F, -6F, 14, 1, 12);
         Piece2.addBox(-6F, 0F, 6F, 12, 1, 1);
         Piece3.addBox(-6F, 0F, -7F, 12, 1, 1);
@@ -43,13 +43,12 @@ public class ModelExplorerHat extends BipedModel {
         Piece9.addBox(3.5F, -2F, -3.5F, 1, 2, 7);
         Piece10.addBox(-1F, -6F, -4.2F, 2, 4, 1);
 
-        ExplorerHat = new RendererModel(this, "Hat");
+        ExplorerHat = new Cuboid(this, "Hat");
 
         textureWidth = 64;
         textureHeight = 64;
 
         ExplorerHat.setRotationPoint(0F, -6F, 0F);
-        setRotation(ExplorerHat, 0F, 0F, 0F);
         ExplorerHat.mirror = true;
         ExplorerHat.addChild(Piece1);
         ExplorerHat.addChild(Piece2);
@@ -63,18 +62,16 @@ public class ModelExplorerHat extends BipedModel {
         ExplorerHat.addChild(Piece10);
         ExplorerHat.setTextureSize(textureWidth, textureHeight);
 
-        this.bipedHead.addChild(ExplorerHat);
+        this.head.addChild(ExplorerHat);
     }
 
     public void render(LivingEntity entity, float f, float f1, float f2, float f3, float f4, float f5) {
-        super.render(entity, f, f1, f2, f3, f4, f5);
-        setRotationAngles(entity, f, f1, f2, f3, f4, f5);
+        super.method_17088(entity, f, f1, f2, f3, f4, f5);
+        method_17087(entity, f, f1, f2, f3, f4, f5);
     }
 
-    private void setRotation(RendererModel model, float x, float y, float z) {
-        model.rotateAngleX = x;
-        model.rotateAngleY = y;
-        model.rotateAngleZ = z;
+    private void setRotationPoint(Cuboid cuboid, float x, float y, float z) {
+        cuboid.setRotationPoint(x, y, z);
     }
 
 }
