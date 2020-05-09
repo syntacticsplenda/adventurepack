@@ -1,8 +1,8 @@
-package brobotato.adventurepack.block;
+package syntacticsplenda.adventurepack.block;
 
-import brobotato.adventurepack.AdventurePack;
-import brobotato.adventurepack.block.tileentity.TileEntityLight;
-import brobotato.adventurepack.item.ModItems;
+import syntacticsplenda.adventurepack.AdventurePack;
+import syntacticsplenda.adventurepack.block.tileentity.TileEntityLight;
+import syntacticsplenda.adventurepack.item.ModItems;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.item.Item;

@@ -1,6 +1,6 @@
-package brobotato.adventurepack.block.tileentity;
+package syntacticsplenda.adventurepack.block.tileentity;
 
-import brobotato.adventurepack.AdventurePack;
+import syntacticsplenda.adventurepack.AdventurePack;
 import net.minecraft.init.Blocks;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityType;

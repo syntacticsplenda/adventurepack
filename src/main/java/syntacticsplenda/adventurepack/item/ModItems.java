@@ -1,9 +1,9 @@
-package brobotato.adventurepack.item;
+package syntacticsplenda.adventurepack.item;
 
 
-import brobotato.adventurepack.AdventurePack;
-import brobotato.adventurepack.item.armor.ItemExplorerHat;
-import brobotato.adventurepack.item.armor.ItemMiningHelm;
+import syntacticsplenda.adventurepack.AdventurePack;
+import syntacticsplenda.adventurepack.item.armor.ItemExplorerHat;
+import syntacticsplenda.adventurepack.item.armor.ItemMiningHelm;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
 import net.minecraftforge.event.RegistryEvent;

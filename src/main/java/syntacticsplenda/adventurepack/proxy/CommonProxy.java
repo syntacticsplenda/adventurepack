@@ -1,4 +1,4 @@
-package brobotato.adventurepack.proxy;
+package syntacticsplenda.adventurepack.proxy;
 
 import net.minecraft.client.renderer.entity.model.ModelBiped;
 import net.minecraftforge.api.distmarker.Dist;

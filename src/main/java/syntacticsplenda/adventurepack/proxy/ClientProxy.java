@@ -1,6 +1,6 @@
-package brobotato.adventurepack.proxy;
+package syntacticsplenda.adventurepack.proxy;
 
-import brobotato.adventurepack.RenderHighlightedHandler;
+import syntacticsplenda.adventurepack.RenderHighlightedHandler;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;

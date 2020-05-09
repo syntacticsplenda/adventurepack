@@ -1,4 +1,4 @@
-package brobotato.adventurepack.proxy;
+package syntacticsplenda.adventurepack.proxy;
 
 
 public interface IProxy {

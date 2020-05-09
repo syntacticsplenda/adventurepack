@@ -1,6 +1,6 @@
-package brobotato.adventurepack.config;
+package syntacticsplenda.adventurepack.config;
 
-import brobotato.adventurepack.AdventurePack;
+import syntacticsplenda.adventurepack.AdventurePack;
 import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.fml.common.Mod;
 import org.apache.commons.lang3.tuple.Pair;

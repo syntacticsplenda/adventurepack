@@ -1,4 +1,4 @@
-package brobotato.adventurepack.item;
+package syntacticsplenda.adventurepack.item;
 
 import net.minecraft.item.Item;
 

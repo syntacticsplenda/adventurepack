@@ -1,7 +1,7 @@
-package brobotato.adventurepack.item;
+package syntacticsplenda.adventurepack.item;
 
-import brobotato.adventurepack.block.ModBlocks;
-import brobotato.adventurepack.config.Config;
+import syntacticsplenda.adventurepack.block.ModBlocks;
+import syntacticsplenda.adventurepack.config.Config;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
