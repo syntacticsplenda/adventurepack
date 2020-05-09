@@ -1,8 +1,8 @@
-package brobotato.adventurepack.item.armor;
+package syntacticsplenda.adventurepack.item.armor;
 
-import brobotato.adventurepack.AdventurePack;
-import brobotato.adventurepack.client.model.ModelMiningHelm;
-import brobotato.adventurepack.item.ILightProducing;
+import syntacticsplenda.adventurepack.AdventurePack;
+import syntacticsplenda.adventurepack.client.model.ModelMiningHelm;
+import syntacticsplenda.adventurepack.item.ILightProducing;
 import net.minecraft.client.renderer.entity.model.ModelBiped;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;

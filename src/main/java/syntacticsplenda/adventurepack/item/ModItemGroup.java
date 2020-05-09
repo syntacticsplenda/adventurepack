@@ -1,11 +1,9 @@
-package brobotato.adventurepack.item;
+package syntacticsplenda.adventurepack.item;
 
-import brobotato.adventurepack.AdventurePack;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IItemProvider;
 import net.minecraft.util.NonNullList;
-import net.minecraft.util.ResourceLocation;
 
 import javax.annotation.Nonnull;
 

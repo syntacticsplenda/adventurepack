@@ -1,6 +1,6 @@
-package brobotato.adventurepack;
+package syntacticsplenda.adventurepack;
 
-import brobotato.adventurepack.item.ItemLantern;
+import syntacticsplenda.adventurepack.item.ItemLantern;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 

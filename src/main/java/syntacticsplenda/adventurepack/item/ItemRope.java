@@ -1,6 +1,6 @@
-package brobotato.adventurepack.item;
+package syntacticsplenda.adventurepack.item;
 
-import brobotato.adventurepack.config.Config;
+import syntacticsplenda.adventurepack.config.Config;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;

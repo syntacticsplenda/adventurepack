@@ -1,4 +1,4 @@
-package brobotato.adventurepack.client.model;
+package syntacticsplenda.adventurepack.client.model;
 
 import net.minecraft.client.renderer.entity.model.ModelBiped;
 import net.minecraft.client.renderer.entity.model.ModelRenderer;

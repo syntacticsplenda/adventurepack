@@ -1,10 +1,10 @@
-package brobotato.adventurepack;
+package syntacticsplenda.adventurepack;
 
-import brobotato.adventurepack.config.Config;
-import brobotato.adventurepack.item.ModItemGroup;
-import brobotato.adventurepack.proxy.ClientProxy;
-import brobotato.adventurepack.proxy.CommonProxy;
-import brobotato.adventurepack.proxy.IProxy;
+import syntacticsplenda.adventurepack.config.Config;
+import syntacticsplenda.adventurepack.item.ModItemGroup;
+import syntacticsplenda.adventurepack.proxy.ClientProxy;
+import syntacticsplenda.adventurepack.proxy.CommonProxy;
+import syntacticsplenda.adventurepack.proxy.IProxy;
 import net.minecraft.item.ItemGroup;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.ModLoadingContext;
