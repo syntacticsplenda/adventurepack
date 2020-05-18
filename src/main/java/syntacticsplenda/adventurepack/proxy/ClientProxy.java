@@ -2,11 +2,10 @@ package syntacticsplenda.adventurepack.proxy;
 
 import syntacticsplenda.adventurepack.AdventurePack;
 import syntacticsplenda.adventurepack.RenderHighlightedHandler;
-import syntacticsplenda.adventurepack.item.armor.ModelCowboyHat;
-import syntacticsplenda.adventurepack.item.armor.ModelExplorerHat;
-import syntacticsplenda.adventurepack.item.armor.ModelMiningHelm;
+import syntacticsplenda.adventurepack.client.model.ModelCowboyHat;
+import syntacticsplenda.adventurepack.client.model.ModelExplorerHat;
+import syntacticsplenda.adventurepack.client.model.ModelMiningHelm;
 import net.minecraft.client.model.ModelBiped;
-import net.minecraft.client.model.ModelCow;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;
 import net.minecraftforge.client.model.ModelLoader;

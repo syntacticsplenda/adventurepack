@@ -1,4 +1,4 @@
-package syntacticsplenda.adventurepack.item.armor;
+package syntacticsplenda.adventurepack.client.model;
 
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.model.ModelRenderer;
