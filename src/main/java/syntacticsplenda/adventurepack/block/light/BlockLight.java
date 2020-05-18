@@ -1,5 +1,7 @@
 package syntacticsplenda.adventurepack.block.light;
 
+import net.minecraft.block.state.BlockFaceShape;
+import net.minecraft.util.EnumFacing;
 import syntacticsplenda.adventurepack.block.BlockTileEntity;
 import syntacticsplenda.adventurepack.config.ModConfig;
 import net.minecraft.block.material.Material;
@@ -81,6 +83,11 @@ public class BlockLight extends BlockTileEntity {
     @SuppressWarnings("deprecation")
     public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos) {
         return Light_Block_AABB;
+    }
+
+    public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, EnumFacing face)
+    {
+        return BlockFaceShape.UNDEFINED;
     }
 
     @Override
