@@ -19,16 +19,16 @@ public interface ILightProducing {
         if (!itemStack.hasTag()) {
             itemStack.getOrCreateTag();
             CompoundNBT tag = new CompoundNBT();
-            tag.put("on", new IntNBT(1));
+            tag.putInt("on",1);
             itemStack.setTag(tag);
         }
         if (itemStack.getTag().getInt("on") == 1) {
             CompoundNBT tag = new CompoundNBT();
-            tag.put("on", new IntNBT(0));
+            tag.putInt("on", 0);
             itemStack.setTag(tag);
         } else if (itemStack.getTag().getInt("on") == 0) {
             CompoundNBT tag = new CompoundNBT();
-            tag.put("on", new IntNBT(1));
+            tag.putInt("on", 1);
             itemStack.setTag(tag);
         }
         return new ActionResult<ItemStack>(ActionResultType.PASS, playerIn.getHeldItem(handIn));

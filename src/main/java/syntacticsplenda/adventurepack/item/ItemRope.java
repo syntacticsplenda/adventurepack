@@ -7,7 +7,6 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.UseAction;
 import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.nbt.IntNBT;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
@@ -30,7 +29,7 @@ public class ItemRope extends ItemBase {
         if (Config.COMMON.instantRope.get()) {
             teleportUser(stack, world, player);
         }
-        return ActionResult.newResult(ActionResultType.SUCCESS, stack);
+        return new ActionResult(ActionResultType.SUCCESS, stack);
     }
 
     @Nonnull
@@ -70,16 +69,16 @@ public class ItemRope extends ItemBase {
     @Override
     public void inventoryTick(ItemStack itemStack, World world, Entity entity, int itemSlot, boolean isSelected) {
         if (!world.isRemote) {
-            BlockPos pos = new BlockPos(entity.posX, entity.posY, entity.posZ);
+            BlockPos pos = entity.getPosition();
             if (world.canBlockSeeSky(pos) && entity.onGround) {
                 if (!itemStack.hasTag()) {
                     itemStack.getOrCreateTag();
                 }
                 CompoundNBT tag = new CompoundNBT();
-                tag.put("x", new IntNBT(pos.getX()));
-                tag.put("y", new IntNBT(pos.getY()));
-                tag.put("z", new IntNBT(pos.getZ()));
-                tag.put("dim", new IntNBT(world.getDimension().getType().getId()));
+                tag.putInt("x", pos.getX());
+                tag.putInt("y", pos.getY());
+                tag.putInt("z", pos.getZ());
+                tag.putInt("dim", world.getDimension().getType().getId());
                 itemStack.setTag(tag);
             }
         }

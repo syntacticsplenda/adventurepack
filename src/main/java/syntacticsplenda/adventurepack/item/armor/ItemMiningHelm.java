@@ -78,7 +78,7 @@ public class ItemMiningHelm extends ArmorItem implements ILightProducing {
 
     @Override
     public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn) {
-        if (!playerIn.isSneaking()) super.onItemRightClick(worldIn, playerIn, handIn);
+        if (!playerIn.func_225608_bj_()) super.onItemRightClick(worldIn, playerIn, handIn);
         return toggleLight(playerIn, handIn);
     }
 

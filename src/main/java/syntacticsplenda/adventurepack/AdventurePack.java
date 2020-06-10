@@ -30,9 +30,7 @@ public class AdventurePack {
 
         IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
 
-        DistExecutor.runWhenOn(Dist.CLIENT, () -> () -> {
-            bus.register(new ColorHandler());
-        });
+        DistExecutor.runWhenOn(Dist.CLIENT, () -> () -> bus.register(new ColorHandler()));
 
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, Config.COMMON_SPEC);
         ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, Config.CLIENT_SPEC);
