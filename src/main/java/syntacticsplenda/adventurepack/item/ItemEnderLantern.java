@@ -1,19 +1,21 @@
 package syntacticsplenda.adventurepack.item;
 
-import syntacticsplenda.adventurepack.config.Config;
-import com.mojang.blaze3d.platform.GlStateManager;
+import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.ActiveRenderInfo;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Vec3d;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
 import org.lwjgl.opengl.GL11;
+import syntacticsplenda.adventurepack.config.Config;
 
 import java.util.ArrayList;
 
@@ -31,34 +33,34 @@ public class ItemEnderLantern extends ItemBase {
         if (player.inventory.hasItemStack(new ItemStack(ModItems.enderLantern)) && mc.gameSettings.thirdPersonView == 0) {
             ArrayList<BlockPos> nearbyOres = nearbyOre();
             for (BlockPos orePos : nearbyOres) {
-                highlightBlock(orePos, evt.getPartialTicks());
+                highlightBlock(orePos);
             }
         }
     }
 
     // wouldn't have been possible without mcjtylib's highlight functions, thank you
     @OnlyIn(Dist.CLIENT)
-    public static void highlightBlock(BlockPos hiPos, float ticks) {
+    public static void highlightBlock(BlockPos hiPos) {
         Minecraft mc = Minecraft.getInstance();
 
-        PlayerEntity player = mc.player;
+        RenderSystem.pushMatrix();
 
-        double doubleX = player.lastTickPosX + (player.posX - player.lastTickPosX) * ticks;
-        double doubleY = player.lastTickPosY + (double) player.getEyeHeight() + (player.posY - player.lastTickPosY) * ticks;
-        double doubleZ = player.lastTickPosZ + (player.posZ - player.lastTickPosZ) * ticks;
-        GlStateManager.pushMatrix();
+        ActiveRenderInfo renderInfo = Minecraft.getInstance().gameRenderer.getActiveRenderInfo();
+        Vec3d projectedView = renderInfo.getProjectedView();
 
-        float r = 0.8f;
-        float g = 0.0f;
-        float b = 0.98f;
-        float a = 0.5f;
+        int r = 204;
+        int g = 0;
+        int b = 250;
+        int a = 1;
 
-        GlStateManager.color3f(r, g, b);
-        GlStateManager.lineWidth(3);
-        GlStateManager.translated(-doubleX, -doubleY, -doubleZ);
+        RenderSystem.color3f(r, g, b);
+        RenderSystem.lineWidth(3);
+        RenderSystem.rotatef(renderInfo.getPitch(), 1, 0, 0); // Fixes camera rotation.
+        RenderSystem.rotatef(renderInfo.getYaw() + 180, 0, 1, 0); // Fixes camera rotation.
+        RenderSystem.translated(-projectedView.x, -projectedView.y, -projectedView.z);
 
-        GlStateManager.disableDepthTest();
-        GlStateManager.disableTexture();
+        RenderSystem.disableDepthTest();
+        RenderSystem.disableTexture();
 
         Tessellator tessellator = Tessellator.getInstance();
         BufferBuilder buffer = tessellator.getBuffer();
@@ -69,46 +71,46 @@ public class ItemEnderLantern extends ItemBase {
 
         buffer.begin(GL11.GL_LINES, DefaultVertexFormats.POSITION_COLOR);
 
-        buffer.pos(mx, my, mz).color(r, g, b, a).endVertex();
-        buffer.pos(mx, my, mz + 1).color(r, g, b, a).endVertex();
+        buffer.func_225582_a_(mx, my, mz).func_225586_a_(r, g, b, a).endVertex();
+        buffer.func_225582_a_(mx, my, mz + 1).func_225586_a_(r, g, b, a).endVertex();
 
-        buffer.pos(mx + 1, my, mz).color(r, g, b, a).endVertex();
-        buffer.pos(mx + 1, my, mz + 1).color(r, g, b, a).endVertex();
+        buffer.func_225582_a_(mx + 1, my, mz).func_225586_a_(r, g, b, a).endVertex();
+        buffer.func_225582_a_(mx + 1, my, mz + 1).func_225586_a_(r, g, b, a).endVertex();
 
-        buffer.pos(mx, my, mz).color(r, g, b, a).endVertex();
-        buffer.pos(mx + 1, my, mz).color(r, g, b, a).endVertex();
+        buffer.func_225582_a_(mx, my, mz).func_225586_a_(r, g, b, a).endVertex();
+        buffer.func_225582_a_(mx + 1, my, mz).func_225586_a_(r, g, b, a).endVertex();
 
-        buffer.pos(mx, my, mz + 1).color(r, g, b, a).endVertex();
-        buffer.pos(mx + 1, my, mz + 1).color(r, g, b, a).endVertex();
+        buffer.func_225582_a_(mx, my, mz + 1).func_225586_a_(r, g, b, a).endVertex();
+        buffer.func_225582_a_(mx + 1, my, mz + 1).func_225586_a_(r, g, b, a).endVertex();
 
-        buffer.pos(mx, my + 1, mz).color(r, g, b, a).endVertex();
-        buffer.pos(mx, my + 1, mz + 1).color(r, g, b, a).endVertex();
+        buffer.func_225582_a_(mx, my + 1, mz).func_225586_a_(r, g, b, a).endVertex();
+        buffer.func_225582_a_(mx, my + 1, mz + 1).func_225586_a_(r, g, b, a).endVertex();
 
-        buffer.pos(mx + 1, my + 1, mz).color(r, g, b, a).endVertex();
-        buffer.pos(mx + 1, my + 1, mz + 1).color(r, g, b, a).endVertex();
+        buffer.func_225582_a_(mx + 1, my + 1, mz).func_225586_a_(r, g, b, a).endVertex();
+        buffer.func_225582_a_(mx + 1, my + 1, mz + 1).func_225586_a_(r, g, b, a).endVertex();
 
-        buffer.pos(mx, my + 1, mz).color(r, g, b, a).endVertex();
-        buffer.pos(mx + 1, my + 1, mz).color(r, g, b, a).endVertex();
+        buffer.func_225582_a_(mx, my + 1, mz).func_225586_a_(r, g, b, a).endVertex();
+        buffer.func_225582_a_(mx + 1, my + 1, mz).func_225586_a_(r, g, b, a).endVertex();
 
-        buffer.pos(mx, my + 1, mz + 1).color(r, g, b, a).endVertex();
-        buffer.pos(mx + 1, my + 1, mz + 1).color(r, g, b, a).endVertex();
+        buffer.func_225582_a_(mx, my + 1, mz + 1).func_225586_a_(r, g, b, a).endVertex();
+        buffer.func_225582_a_(mx + 1, my + 1, mz + 1).func_225586_a_(r, g, b, a).endVertex();
 
-        buffer.pos(mx, my, mz).color(r, g, b, a).endVertex();
-        buffer.pos(mx, my + 1, mz).color(r, g, b, a).endVertex();
+        buffer.func_225582_a_(mx, my, mz).func_225586_a_(r, g, b, a).endVertex();
+        buffer.func_225582_a_(mx, my + 1, mz).func_225586_a_(r, g, b, a).endVertex();
 
-        buffer.pos(mx + 1, my, mz).color(r, g, b, a).endVertex();
-        buffer.pos(mx + 1, my + 1, mz).color(r, g, b, a).endVertex();
+        buffer.func_225582_a_(mx + 1, my, mz).func_225586_a_(r, g, b, a).endVertex();
+        buffer.func_225582_a_(mx + 1, my + 1, mz).func_225586_a_(r, g, b, a).endVertex();
 
-        buffer.pos(mx, my, mz + 1).color(r, g, b, a).endVertex();
-        buffer.pos(mx, my + 1, mz + 1).color(r, g, b, a).endVertex();
+        buffer.func_225582_a_(mx, my, mz + 1).func_225586_a_(r, g, b, a).endVertex();
+        buffer.func_225582_a_(mx, my + 1, mz + 1).func_225586_a_(r, g, b, a).endVertex();
 
-        buffer.pos(mx + 1, my, mz + 1).color(r, g, b, a).endVertex();
-        buffer.pos(mx + 1, my + 1, mz + 1).color(r, g, b, a).endVertex();
+        buffer.func_225582_a_(mx + 1, my, mz + 1).func_225586_a_(r, g, b, a).endVertex();
+        buffer.func_225582_a_(mx + 1, my + 1, mz + 1).func_225586_a_(r, g, b, a).endVertex();
 
         tessellator.draw();
 
-        GlStateManager.enableTexture();
-        GlStateManager.popMatrix();
+        RenderSystem.enableTexture();
+        RenderSystem.popMatrix();
     }
 
     @OnlyIn(Dist.CLIENT)
