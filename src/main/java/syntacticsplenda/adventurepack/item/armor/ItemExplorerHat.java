@@ -57,6 +57,11 @@ public class ItemExplorerHat extends ArmorItem implements IDyeableArmorItem {
         public float getToughness() {
             return 0;
         }
+
+        @Override
+        public float func_230304_f_() {
+            return 0;
+        }
     };
 
     public final EquipmentSlotType type;

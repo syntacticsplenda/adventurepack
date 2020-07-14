@@ -1,6 +1,5 @@
 package syntacticsplenda.adventurepack.item;
 
-import syntacticsplenda.adventurepack.config.Config;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -12,6 +11,7 @@ import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import syntacticsplenda.adventurepack.config.Config;
 
 import javax.annotation.Nonnull;
 
@@ -69,8 +69,8 @@ public class ItemRope extends ItemBase {
     @Override
     public void inventoryTick(ItemStack itemStack, World world, Entity entity, int itemSlot, boolean isSelected) {
         if (!world.isRemote) {
-            BlockPos pos = entity.getPosition();
-            if (world.canBlockSeeSky(pos) && entity.onGround) {
+            BlockPos pos = new BlockPos(entity.getPositionVec());
+            if (world.canBlockSeeSky(pos) && entity.func_233570_aj_()) {
                 if (!itemStack.hasTag()) {
                     itemStack.getOrCreateTag();
                 }
@@ -78,27 +78,28 @@ public class ItemRope extends ItemBase {
                 tag.putInt("x", pos.getX());
                 tag.putInt("y", pos.getY());
                 tag.putInt("z", pos.getZ());
-                tag.putInt("dim", world.getDimension().getType().getId());
+                tag.putString("dim", world.func_234922_V_().toString());
                 itemStack.setTag(tag);
             }
         }
     }
 
     public void teleportUser(ItemStack stack, World world, PlayerEntity player) {
-        BlockPos currentPos = player.getPosition();
+        BlockPos currentPos = new BlockPos(player.getPositionVec());
         if (!stack.hasTag()) {
             if (Config.COMMON.ropeSpawn.get()) {
-                if (!world.isRemote && !world.canBlockSeeSky(currentPos) && (player.getBedLocation(player.dimension) != null)) {
-                    player.setPositionAndUpdate(player.getBedLocation(player.dimension).getX(),
-                            player.getBedLocation(player.dimension).getY(),
-                            player.getBedLocation(player.dimension).getZ()
-                    );
+                if (!world.isRemote && !world.canBlockSeeSky(currentPos) && (player.getBedPosition().isPresent())) {
+                    player.teleportKeepLoaded(player.getBedPosition().get().getX(),
+                            player.getBedPosition().get().getY(),
+                            player.getBedPosition().get().getZ())
+                    ;
                     if (!player.abilities.isCreativeMode)
                         stack.shrink(1);
                 }
 
             }
-        } else if (!world.isRemote && !world.canBlockSeeSky(currentPos) && (world.getDimension().getType().getId() == stack.getTag().getInt("dim"))) {
+        } else if (!world.isRemote && !world.canBlockSeeSky(currentPos) &&
+                (world.func_234922_V_().toString().equals(stack.getTag().getString("dim")))) {
             player.setPositionAndUpdate(stack.getTag().getInt("x"),
                     stack.getTag().getInt("y"),
                     stack.getTag().getInt("z"));

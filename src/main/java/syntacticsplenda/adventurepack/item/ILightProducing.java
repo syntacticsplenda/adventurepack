@@ -1,5 +1,8 @@
 package syntacticsplenda.adventurepack.item;
 
+import com.sun.javafx.geom.Vec3d;
+import net.minecraft.util.math.vector.Vector3d;
+import net.minecraft.util.math.vector.Vector3i;
 import syntacticsplenda.adventurepack.block.ModBlocks;
 import syntacticsplenda.adventurepack.config.Config;
 import net.minecraft.entity.player.PlayerEntity;
@@ -35,9 +38,9 @@ public interface ILightProducing {
     }
 
     default BlockRayTraceResult rayTrace(double blockReachDistance, float partialTicks, PlayerEntity player) {
-        Vec3d vec3d = new Vec3d(player.getPosition().getX(), player.getPosition().getY() + player.getEyeHeight(), player.getPosition().getZ());
-        Vec3d vec3d1 = player.getLook(partialTicks);
-        Vec3d vec3d2 = vec3d.add(vec3d1.x * blockReachDistance, vec3d1.y * blockReachDistance, vec3d1.z * blockReachDistance);
+        Vector3d vec3d = new Vector3d(player.getPositionVec().getX(), player.getPositionVec().getY() + player.getEyeHeight(), player.getPositionVec().getZ());
+        Vector3d vec3d1 = player.getLook(partialTicks);
+        Vector3d vec3d2 = vec3d.add(vec3d1.x * blockReachDistance, vec3d1.y * blockReachDistance, vec3d1.z * blockReachDistance);
         return player.world.rayTraceBlocks(new RayTraceContext(vec3d, vec3d2, RayTraceContext.BlockMode.OUTLINE, RayTraceContext.FluidMode.NONE, player));
     }
 
@@ -49,7 +52,7 @@ public interface ILightProducing {
             if (lookPos.getType() == RayTraceResult.Type.MISS) return;
             if (lookPos.getType() == RayTraceResult.Type.BLOCK) pos = lookPos.getPos().offset(lookPos.getFace());
             else pos = lookPos.getPos();
-            double vecDistance = Math.pow(lookPos.getPos().distanceSq(player.getPosition()), 0.5);
+            double vecDistance = Math.pow(lookPos.getPos().distanceSq(player.getPositionVec().getX(), player.getPositionVec().getY(), player.getPositionVec().getZ(), true), 0.5);
             if (vecDistance <= Config.COMMON.helmetRange.get()) {
                 setBlockToLight(pos, world, player);
             }
