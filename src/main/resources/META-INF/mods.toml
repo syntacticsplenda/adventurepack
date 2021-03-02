@@ -2,6 +2,7 @@ modLoader="javafml"
 loaderVersion="[25,)"
 issueTrackerURL="https://github.com/syntacticsplenda/adventurepack/issues"
 authors="SyntacticSplenda"
+license="MIT"
 
 [[mods]]
 modId="adventurepack"

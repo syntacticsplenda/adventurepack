@@ -64,7 +64,7 @@ public class ItemMiningHelm extends ArmorItem implements ILightProducing {
         }
 
         @Override
-        public float func_230304_f_() {
+        public float getKnockbackResistance() {
             return 0;
         }
     };

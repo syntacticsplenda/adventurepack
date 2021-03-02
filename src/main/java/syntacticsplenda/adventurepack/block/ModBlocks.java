@@ -24,7 +24,7 @@ public final class ModBlocks {
     @SubscribeEvent
     public static void registerBlocks(RegistryEvent.Register<Block> evt) {
         IForgeRegistry<Block> registry = evt.getRegistry();
-        registry.register(new BlockLight(Block.Properties.create(Material.AIR).func_235838_a_((p_235464_0_) -> 15)).setRegistryName(AdventurePack.modId, "block_light"));
+        registry.register(new BlockLight(Block.Properties.create(Material.AIR).setLightLevel((x) -> 15)).setRegistryName(AdventurePack.modId, "block_light"));
     }
 
     @SubscribeEvent

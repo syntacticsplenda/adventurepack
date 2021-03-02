@@ -30,7 +30,7 @@ public class ItemEnderLantern extends ItemBase {
         Minecraft mc = Minecraft.getInstance();
 
         PlayerEntity player = mc.player;
-        if (player.inventory.hasItemStack(new ItemStack(ModItems.enderLantern)) && mc.gameSettings.thirdPersonView == 0) {
+        if (player.inventory.hasItemStack(new ItemStack(ModItems.enderLantern))) {
             ArrayList<BlockPos> nearbyOres = nearbyOre();
             for (BlockPos orePos : nearbyOres) {
                 highlightBlock(orePos);

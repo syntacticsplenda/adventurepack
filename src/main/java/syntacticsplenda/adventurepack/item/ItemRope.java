@@ -70,7 +70,7 @@ public class ItemRope extends ItemBase {
     public void inventoryTick(ItemStack itemStack, World world, Entity entity, int itemSlot, boolean isSelected) {
         if (!world.isRemote) {
             BlockPos pos = new BlockPos(entity.getPositionVec());
-            if (world.canBlockSeeSky(pos) && entity.func_233570_aj_()) {
+            if (world.canBlockSeeSky(pos) && entity.isOnGround()) {
                 if (!itemStack.hasTag()) {
                     itemStack.getOrCreateTag();
                 }
@@ -78,7 +78,7 @@ public class ItemRope extends ItemBase {
                 tag.putInt("x", pos.getX());
                 tag.putInt("y", pos.getY());
                 tag.putInt("z", pos.getZ());
-                tag.putString("dim", world.func_234922_V_().toString());
+                tag.putString("dim", world.getDimensionType().toString());
                 itemStack.setTag(tag);
             }
         }
@@ -99,7 +99,7 @@ public class ItemRope extends ItemBase {
 
             }
         } else if (!world.isRemote && !world.canBlockSeeSky(currentPos) &&
-                (world.func_234922_V_().toString().equals(stack.getTag().getString("dim")))) {
+                (world.getDimensionType().toString().equals(stack.getTag().getString("dim")))) {
             player.setPositionAndUpdate(stack.getTag().getInt("x"),
                     stack.getTag().getInt("y"),
                     stack.getTag().getInt("z"));
