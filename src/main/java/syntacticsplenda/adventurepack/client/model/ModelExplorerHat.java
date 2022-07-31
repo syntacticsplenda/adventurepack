@@ -33,16 +33,16 @@ public class ModelExplorerHat extends BipedModel {
         Piece8 = new ModelRenderer(this, 32, 54);
         Piece9 = new ModelRenderer(this, 32, 54);
         Piece10 = new ModelRenderer(this, 48, 54);
-        Piece1.func_228301_a_(-7F, 0F, -6F, 14, 1, 12, modelSize);
-        Piece2.func_228301_a_(-6F, 0F, 6F, 12, 1, 1, modelSize);
-        Piece3.func_228301_a_(-6F, 0F, -7F, 12, 1, 1, modelSize);
-        Piece4.func_228301_a_(-4.5F, -2F, 3.5F, 9, 2, 1, modelSize);
-        Piece5.func_228301_a_(-4F, -5F, -4F, 8, 5, 8, modelSize);
-        Piece6.func_228301_a_(-3F, -6F, -4F, 6, 1, 8, modelSize);
-        Piece7.func_228301_a_(-4.5F, -2F, -4.5F, 9, 2, 1, modelSize);
-        Piece8.func_228301_a_(-4.5F, -2F, -3.5F, 1, 2, 7, modelSize);
-        Piece9.func_228301_a_(3.5F, -2F, -3.5F, 1, 2, 7, modelSize);
-        Piece10.func_228301_a_(-1F, -6F, -4.2F, 2, 4, 1, modelSize);
+        Piece1.addBox(-7F, 0F, -6F, 14, 1, 12, modelSize);
+        Piece2.addBox(-6F, 0F, 6F, 12, 1, 1, modelSize);
+        Piece3.addBox(-6F, 0F, -7F, 12, 1, 1, modelSize);
+        Piece4.addBox(-4.5F, -2F, 3.5F, 9, 2, 1, modelSize);
+        Piece5.addBox(-4F, -5F, -4F, 8, 5, 8, modelSize);
+        Piece6.addBox(-3F, -6F, -4F, 6, 1, 8, modelSize);
+        Piece7.addBox(-4.5F, -2F, -4.5F, 9, 2, 1, modelSize);
+        Piece8.addBox(-4.5F, -2F, -3.5F, 1, 2, 7, modelSize);
+        Piece9.addBox(3.5F, -2F, -3.5F, 1, 2, 7, modelSize);
+        Piece10.addBox(-1F, -6F, -4.2F, 2, 4, 1, modelSize);
 
         ExplorerHat = new ModelRenderer(this);
 

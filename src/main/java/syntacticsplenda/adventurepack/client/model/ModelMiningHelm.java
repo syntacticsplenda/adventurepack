@@ -30,14 +30,14 @@ public class ModelMiningHelm extends BipedModel {
         Piece6 = new ModelRenderer(this, 40, 35);
         Piece7 = new ModelRenderer(this, 40, 45);
         Piece8 = new ModelRenderer(this, 40, 45);
-        Piece1.func_228301_a_(-5F, 0F, -5F, 10, 1, 10, modelSize);
-        Piece2.func_228301_a_(-4F, -4F, -4F, 8, 4, 8, modelSize);
-        Piece3.func_228301_a_(-3F, -5F, -4F, 6, 1, 8, modelSize);
-        Piece4.func_228301_a_(-1F, -2F, -5F, 2, 2, 1, modelSize);
-        Piece5.func_228301_a_(3.5F, -2F, -4F, 1, 2, 8, modelSize);
-        Piece6.func_228301_a_(-4.5F, -2F, -4F, 1, 2, 8, modelSize);
-        Piece7.func_228301_a_(-4.5F, -2F, 3.5F, 9, 2, 1, modelSize);
-        Piece8.func_228301_a_(-4.5F, -2F, -4.5F, 9, 2, 1, modelSize);
+        Piece1.addBox(-5F, 0F, -5F, 10, 1, 10, modelSize);
+        Piece2.addBox(-4F, -4F, -4F, 8, 4, 8, modelSize);
+        Piece3.addBox(-3F, -5F, -4F, 6, 1, 8, modelSize);
+        Piece4.addBox(-1F, -2F, -5F, 2, 2, 1, modelSize);
+        Piece5.addBox(3.5F, -2F, -4F, 1, 2, 8, modelSize);
+        Piece6.addBox(-4.5F, -2F, -4F, 1, 2, 8, modelSize);
+        Piece7.addBox(-4.5F, -2F, 3.5F, 9, 2, 1, modelSize);
+        Piece8.addBox(-4.5F, -2F, -4.5F, 9, 2, 1, modelSize);
 
         MiningHelmet = new ModelRenderer(this);
 

@@ -62,6 +62,11 @@ public class ItemMiningHelm extends ArmorItem implements ILightProducing {
         public float getToughness() {
             return 0;
         }
+
+        @Override
+        public float getKnockbackResistance() {
+            return 0;
+        }
     };
 
     public final EquipmentSlotType type;
@@ -78,7 +83,7 @@ public class ItemMiningHelm extends ArmorItem implements ILightProducing {
 
     @Override
     public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn) {
-        if (!playerIn.func_225608_bj_()) super.onItemRightClick(worldIn, playerIn, handIn);
+        if (!playerIn.isSneaking()) super.onItemRightClick(worldIn, playerIn, handIn);
         return toggleLight(playerIn, handIn);
     }
 

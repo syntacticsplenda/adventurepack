@@ -1,6 +1,5 @@
 package syntacticsplenda.adventurepack.block;
 
-import syntacticsplenda.adventurepack.block.tileentity.TileEntityLight;
 import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
 import net.minecraft.tileentity.TileEntity;
@@ -9,6 +8,7 @@ import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.util.math.shapes.VoxelShapes;
 import net.minecraft.world.IBlockReader;
+import syntacticsplenda.adventurepack.block.tileentity.TileEntityLight;
 
 public class BlockLight extends BlockBase {
 
@@ -35,11 +35,4 @@ public class BlockLight extends BlockBase {
     public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
         return VoxelShapes.empty();
     }
-
-    @Override
-    @SuppressWarnings("deprecation")
-    public int getLightValue(BlockState state) {
-        return 15;
-    }
-
 }

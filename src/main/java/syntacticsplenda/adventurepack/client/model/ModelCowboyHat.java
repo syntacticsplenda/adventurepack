@@ -40,19 +40,19 @@ public class ModelCowboyHat extends BipedModel {
         Piece11 = new ModelRenderer(this, 42, 32);
         Piece12 = new ModelRenderer(this, 42, 32);
         Piece13 = new ModelRenderer(this, 43, 32);
-        Piece1.func_228301_a_(-5F, 0F, -5F, 10, 1, 10, modelSize);
-        Piece2.func_228301_a_(-6F, -1F, -5F, 1, 1, 10, modelSize);
-        Piece3.func_228301_a_(5F, -1F, -5F, 1, 1, 10, modelSize);
-        Piece4.func_228301_a_(-7F, -2F, -4F, 1, 1, 8, modelSize);
-        Piece5.func_228301_a_(6F, -2F, -4F, 1, 1, 8, modelSize);
-        Piece6.func_228301_a_(-4.1F, -2F, -4.1F, 1, 2, 8, modelSize);
-        Piece7.func_228301_a_(-4.1F, -2F, 3.1F, 8, 2, 1, modelSize);
-        Piece8.func_228301_a_(3.1F, -2F, -3.9F, 1, 2, 8, modelSize);
-        Piece9.func_228301_a_(-3.9F, -2F, -4.1F, 8, 2, 1, modelSize);
-        Piece10.func_228301_a_(-4F, -3F, -4F, 8, 3, 8, modelSize);
-        Piece11.func_228301_a_(-3.5F, -5F, -4F, 3, 2, 8, modelSize);
-        Piece12.func_228301_a_(0.5F, -5F, -4F, 3, 2, 8, modelSize);
-        Piece13.func_228301_a_(-0.5F, -4.5F, -4F, 1, 2, 8, modelSize);
+        Piece1.addBox(-5F, 0F, -5F, 10, 1, 10, modelSize);
+        Piece2.addBox(-6F, -1F, -5F, 1, 1, 10, modelSize);
+        Piece3.addBox(5F, -1F, -5F, 1, 1, 10, modelSize);
+        Piece4.addBox(-7F, -2F, -4F, 1, 1, 8, modelSize);
+        Piece5.addBox(6F, -2F, -4F, 1, 1, 8, modelSize);
+        Piece6.addBox(-4.1F, -2F, -4.1F, 1, 2, 8, modelSize);
+        Piece7.addBox(-4.1F, -2F, 3.1F, 8, 2, 1, modelSize);
+        Piece8.addBox(3.1F, -2F, -3.9F, 1, 2, 8, modelSize);
+        Piece9.addBox(-3.9F, -2F, -4.1F, 8, 2, 1, modelSize);
+        Piece10.addBox(-4F, -3F, -4F, 8, 3, 8, modelSize);
+        Piece11.addBox(-3.5F, -5F, -4F, 3, 2, 8, modelSize);
+        Piece12.addBox(0.5F, -5F, -4F, 3, 2, 8, modelSize);
+        Piece13.addBox(-0.5F, -4.5F, -4F, 1, 2, 8, modelSize);
 
         CowboyHat = new ModelRenderer(this);
 
