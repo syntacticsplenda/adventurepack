@@ -21,3 +21,4 @@ gradle
 # other
 eclipse
 run
+.DS_Store

@@ -23,29 +23,29 @@ public class ItemExplorerHat extends ArmorItem implements IDyeableArmorItem {
         private final int[] damageReduction = {2, 2, 2, 2};
 
         @Override
-        public int getDurability(EquipmentSlotType slotIn) {
+        public int getDurabilityForSlot(EquipmentSlotType slotIn) {
             return 133;
         }
 
         @Override
-        public int getDamageReductionAmount(EquipmentSlotType slotIn) {
+        public int getDefenseForSlot(EquipmentSlotType slotIn) {
             return damageReduction[slotIn.getIndex()];
         }
 
         @Override
-        public int getEnchantability() {
+        public int getEnchantmentValue() {
             return 9;
         }
 
         @Override
-        public SoundEvent getSoundEvent() {
-            return SoundEvents.ITEM_ARMOR_EQUIP_IRON;
+        public SoundEvent getEquipSound() {
+            return SoundEvents.ARMOR_EQUIP_IRON;
         }
 
         @Override
-        public Ingredient getRepairMaterial() {
+        public Ingredient getRepairIngredient() {
             Item item = ForgeRegistries.ITEMS.getValue(new ResourceLocation("minecraft", "leather"));
-            return Ingredient.fromItems(item);
+            return Ingredient.of(item);
         }
 
         @Override

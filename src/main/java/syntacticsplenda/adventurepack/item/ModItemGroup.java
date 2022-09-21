@@ -16,12 +16,12 @@ public class ModItemGroup extends ItemGroup {
     }
 
     @Override
-    public ItemStack createIcon() {
+    public ItemStack makeIcon() {
         return new ItemStack(ModItems.escapeRope);
     }
 
     @Override
-    public void fill(@Nonnull NonNullList<ItemStack> list) {
+    public void fillItemList(@Nonnull NonNullList<ItemStack> list) {
         this.list = list;
         addItem(ModItems.cowboyHat);
         addItem(ModItems.escapeRope);
@@ -33,7 +33,7 @@ public class ModItemGroup extends ItemGroup {
     }
 
     private void addItem(IItemProvider item) {
-        item.asItem().fillItemGroup(this, list);
+        item.asItem().fillItemCategory(this, list);
     }
 
 }

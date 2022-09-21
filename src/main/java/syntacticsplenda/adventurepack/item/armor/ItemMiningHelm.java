@@ -21,36 +21,35 @@ import net.minecraftforge.registries.ForgeRegistries;
 
 import javax.annotation.Nonnull;
 
-
 public class ItemMiningHelm extends ArmorItem implements ILightProducing {
 
     public static final IArmorMaterial miningArmorMaterial = new IArmorMaterial() {
-        private final int[] damageReduction = {1, 1, 1, 1};
+        private final int[] damageReduction = { 1, 1, 1, 1 };
 
         @Override
-        public int getDurability(EquipmentSlotType slotIn) {
+        public int getDurabilityForSlot(EquipmentSlotType slotIn) {
             return 190;
         }
 
         @Override
-        public int getDamageReductionAmount(EquipmentSlotType slotIn) {
+        public int getDefenseForSlot(EquipmentSlotType slotIn) {
             return damageReduction[slotIn.getIndex()];
         }
 
         @Override
-        public int getEnchantability() {
+        public int getEnchantmentValue() {
             return 0;
         }
 
         @Override
-        public SoundEvent getSoundEvent() {
-            return SoundEvents.ITEM_ARMOR_EQUIP_IRON;
+        public SoundEvent getEquipSound() {
+            return SoundEvents.ARMOR_EQUIP_IRON;
         }
 
         @Override
-        public Ingredient getRepairMaterial() {
+        public Ingredient getRepairIngredient() {
             Item item = ForgeRegistries.ITEMS.getValue(new ResourceLocation("minecraft", "iron_ingot"));
-            return Ingredient.fromItems(item);
+            return Ingredient.of(item);
         }
 
         @Override
@@ -82,15 +81,16 @@ public class ItemMiningHelm extends ArmorItem implements ILightProducing {
     }
 
     @Override
-    public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn) {
-        if (!playerIn.isSneaking()) super.onItemRightClick(worldIn, playerIn, handIn);
+    public ActionResult<ItemStack> use(World worldIn, PlayerEntity playerIn, Hand handIn) {
+        if (!playerIn.isShiftKeyDown())
+            super.use(worldIn, playerIn, handIn);
         return toggleLight(playerIn, handIn);
     }
 
-
     @OnlyIn(Dist.CLIENT)
     @Override
-    public BipedModel getArmorModel(LivingEntity entityLiving, ItemStack itemStack, EquipmentSlotType armorSlot, BipedModel original) {
+    public BipedModel getArmorModel(LivingEntity entityLiving, ItemStack itemStack, EquipmentSlotType armorSlot,
+            BipedModel original) {
         return new ModelMiningHelm(1.0f);
     }
 

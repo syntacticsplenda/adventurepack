@@ -19,10 +19,10 @@ public class TileEntityLight extends TileEntity implements ITickableTileEntity {
 
     @Override
     public void tick() {
-        if (!this.hasWorld()) return;
-        World world = this.getWorld();
-        if (world.isRemote) return;
-        world.setBlockState(this.pos, Blocks.AIR.getDefaultState());
+        if (!this.hasLevel()) return;
+        World world = this.getLevel();
+        if (world.isClientSide()) return;
+        world.setBlockAndUpdate(this.worldPosition, Blocks.AIR.defaultBlockState());
     }
 
 }

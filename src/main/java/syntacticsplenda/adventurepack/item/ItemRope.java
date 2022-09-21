@@ -15,7 +15,6 @@ import syntacticsplenda.adventurepack.config.Config;
 
 import javax.annotation.Nonnull;
 
-
 public class ItemRope extends ItemBase {
 
     public ItemRope(Properties properties) {
@@ -23,9 +22,9 @@ public class ItemRope extends ItemBase {
     }
 
     @Override
-    public ActionResult<ItemStack> onItemRightClick(World world, PlayerEntity player, Hand hand) {
-        ItemStack stack = player.getHeldItem(hand);
-        player.setActiveHand(hand);
+    public ActionResult<ItemStack> use(World world, PlayerEntity player, Hand hand) {
+        ItemStack stack = player.getItemInHand(hand);
+        player.startUsingItem(hand);
         if (Config.COMMON.instantRope.get()) {
             teleportUser(stack, world, player);
         }
@@ -34,7 +33,7 @@ public class ItemRope extends ItemBase {
 
     @Nonnull
     @Override
-    public UseAction getUseAction(ItemStack stack) {
+    public UseAction getUseAnimation(ItemStack stack) {
         return UseAction.BOW;
     }
 
@@ -45,7 +44,7 @@ public class ItemRope extends ItemBase {
     }
 
     @Override
-    public void onPlayerStoppedUsing(ItemStack stack, World world, LivingEntity entity, int timeLeft) {
+    public void releaseUsing(ItemStack stack, World world, LivingEntity entity, int timeLeft) {
 
         if (!(entity instanceof PlayerEntity)) {
             return;
@@ -68,9 +67,9 @@ public class ItemRope extends ItemBase {
 
     @Override
     public void inventoryTick(ItemStack itemStack, World world, Entity entity, int itemSlot, boolean isSelected) {
-        if (!world.isRemote) {
-            BlockPos pos = new BlockPos(entity.getPositionVec());
-            if (world.canBlockSeeSky(pos) && entity.isOnGround()) {
+        if (!world.isClientSide) {
+            BlockPos pos = new BlockPos(entity.position());
+            if (world.canSeeSkyFromBelowWater(pos) && entity.isOnGround()) {
                 if (!itemStack.hasTag()) {
                     itemStack.getOrCreateTag();
                 }
@@ -78,32 +77,32 @@ public class ItemRope extends ItemBase {
                 tag.putInt("x", pos.getX());
                 tag.putInt("y", pos.getY());
                 tag.putInt("z", pos.getZ());
-                tag.putString("dim", world.getDimensionType().toString());
+                tag.putString("dim", world.dimensionType().toString());
                 itemStack.setTag(tag);
             }
         }
     }
 
     public void teleportUser(ItemStack stack, World world, PlayerEntity player) {
-        BlockPos currentPos = new BlockPos(player.getPositionVec());
+        BlockPos currentPos = new BlockPos(player.position());
         if (!stack.hasTag()) {
             if (Config.COMMON.ropeSpawn.get()) {
-                if (!world.isRemote && !world.canBlockSeeSky(currentPos) && (player.getBedPosition().isPresent())) {
-                    player.teleportKeepLoaded(player.getBedPosition().get().getX(),
-                            player.getBedPosition().get().getY(),
-                            player.getBedPosition().get().getZ())
+                if (!world.isClientSide && !world.canSeeSkyFromBelowWater(currentPos) && (player.getSleepingPos().isPresent())) {
+                    player.teleportToWithTicket(player.getSleepingPos().get().getX(),
+                            player.getSleepingPos().get().getY(),
+                            player.getSleepingPos().get().getZ())
                     ;
-                    if (!player.abilities.isCreativeMode)
+                    if (!player.abilities.instabuild)
                         stack.shrink(1);
                 }
 
             }
-        } else if (!world.isRemote && !world.canBlockSeeSky(currentPos) &&
-                (world.getDimensionType().toString().equals(stack.getTag().getString("dim")))) {
-            player.setPositionAndUpdate(stack.getTag().getInt("x"),
+        } else if (!world.isClientSide && !world.canSeeSkyFromBelowWater(currentPos) &&
+                (world.dimensionType().toString().equals(stack.getTag().getString("dim")))) {
+            player.teleportTo(stack.getTag().getInt("x"),
                     stack.getTag().getInt("y"),
                     stack.getTag().getInt("z"));
-            if (!player.abilities.isCreativeMode)
+            if (!player.abilities.instabuild)
                 stack.shrink(1);
         }
     }

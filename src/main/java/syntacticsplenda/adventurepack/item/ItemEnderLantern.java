@@ -30,7 +30,7 @@ public class ItemEnderLantern extends ItemBase {
         Minecraft mc = Minecraft.getInstance();
 
         PlayerEntity player = mc.player;
-        if (player.inventory.hasItemStack(new ItemStack(ModItems.enderLantern))) {
+        if (player.inventory.contains(new ItemStack(ModItems.enderLantern))) {
             ArrayList<BlockPos> nearbyOres = nearbyOre();
             for (BlockPos orePos : nearbyOres) {
                 highlightBlock(orePos);
@@ -45,8 +45,8 @@ public class ItemEnderLantern extends ItemBase {
 
         RenderSystem.pushMatrix();
 
-        ActiveRenderInfo renderInfo = Minecraft.getInstance().gameRenderer.getActiveRenderInfo();
-        Vector3d projectedView = renderInfo.getProjectedView();
+        ActiveRenderInfo renderInfo = Minecraft.getInstance().gameRenderer.getMainCamera();
+        Vector3d projectedView = renderInfo.getPosition();
 
         int r = 204;
         int g = 0;
@@ -55,15 +55,15 @@ public class ItemEnderLantern extends ItemBase {
 
         RenderSystem.color3f(r, g, b);
         RenderSystem.lineWidth(3);
-        RenderSystem.rotatef(renderInfo.getPitch(), 1, 0, 0); // Fixes camera rotation.
-        RenderSystem.rotatef(renderInfo.getYaw() + 180, 0, 1, 0); // Fixes camera rotation.
+        RenderSystem.rotatef(renderInfo.getXRot(), 1, 0, 0); // Fixes camera rotation.
+        RenderSystem.rotatef(renderInfo.getYRot() + 180, 0, 1, 0); // Fixes camera rotation.
         RenderSystem.translated(-projectedView.x, -projectedView.y, -projectedView.z);
 
         RenderSystem.disableDepthTest();
         RenderSystem.disableTexture();
 
         Tessellator tessellator = Tessellator.getInstance();
-        BufferBuilder buffer = tessellator.getBuffer();
+        BufferBuilder buffer = tessellator.getBuilder();
 
         float mx = (float) hiPos.getX();
         float my = (float) hiPos.getY();
@@ -71,43 +71,43 @@ public class ItemEnderLantern extends ItemBase {
 
         buffer.begin(GL11.GL_LINES, DefaultVertexFormats.POSITION_COLOR);
 
-        buffer.addVertex(mx, my, mz, r, g, b, a, 0.0F, 0.0F, 0, 0, 0.0F, 0.0F, 0.0F);
-        buffer.addVertex(mx, my, mz + 1, r, g, b, a, 0.0F, 0.0F, 0, 0, 0.0F, 0.0F, 0.0F);
+        buffer.vertex(mx, my, mz, r, g, b, a, 0.0F, 0.0F, 0, 0, 0.0F, 0.0F, 0.0F);
+        buffer.vertex(mx, my, mz + 1, r, g, b, a, 0.0F, 0.0F, 0, 0, 0.0F, 0.0F, 0.0F);
 
-        buffer.addVertex(mx + 1, my, mz, r, g, b, a, 0.0F, 0.0F, 0, 0, 0.0F, 0.0F, 0.0F);
-        buffer.addVertex(mx + 1, my, mz + 1, r, g, b, a, 0.0F, 0.0F, 0, 0, 0.0F, 0.0F, 0.0F);
+        buffer.vertex(mx + 1, my, mz, r, g, b, a, 0.0F, 0.0F, 0, 0, 0.0F, 0.0F, 0.0F);
+        buffer.vertex(mx + 1, my, mz + 1, r, g, b, a, 0.0F, 0.0F, 0, 0, 0.0F, 0.0F, 0.0F);
 
-        buffer.addVertex(mx, my, mz, r, g, b, a, 0.0F, 0.0F, 0, 0, 0.0F, 0.0F, 0.0F);
-        buffer.addVertex(mx + 1, my, mz, r, g, b, a, 0.0F, 0.0F, 0, 0, 0.0F, 0.0F, 0.0F);
+        buffer.vertex(mx, my, mz, r, g, b, a, 0.0F, 0.0F, 0, 0, 0.0F, 0.0F, 0.0F);
+        buffer.vertex(mx + 1, my, mz, r, g, b, a, 0.0F, 0.0F, 0, 0, 0.0F, 0.0F, 0.0F);
 
-        buffer.addVertex(mx, my, mz + 1, r, g, b, a, 0.0F, 0.0F, 0, 0, 0.0F, 0.0F, 0.0F);
-        buffer.addVertex(mx + 1, my, mz + 1, r, g, b, a, 0.0F, 0.0F, 0, 0, 0.0F, 0.0F, 0.0F);
+        buffer.vertex(mx, my, mz + 1, r, g, b, a, 0.0F, 0.0F, 0, 0, 0.0F, 0.0F, 0.0F);
+        buffer.vertex(mx + 1, my, mz + 1, r, g, b, a, 0.0F, 0.0F, 0, 0, 0.0F, 0.0F, 0.0F);
 
-        buffer.addVertex(mx, my + 1, mz, r, g, b, a, 0.0F, 0.0F, 0, 0, 0.0F, 0.0F, 0.0F);
-        buffer.addVertex(mx, my + 1, mz + 1, r, g, b, a, 0.0F, 0.0F, 0, 0, 0.0F, 0.0F, 0.0F);
+        buffer.vertex(mx, my + 1, mz, r, g, b, a, 0.0F, 0.0F, 0, 0, 0.0F, 0.0F, 0.0F);
+        buffer.vertex(mx, my + 1, mz + 1, r, g, b, a, 0.0F, 0.0F, 0, 0, 0.0F, 0.0F, 0.0F);
 
-        buffer.addVertex(mx + 1, my + 1, mz, r, g, b, a, 0.0F, 0.0F, 0, 0, 0.0F, 0.0F, 0.0F);
-        buffer.addVertex(mx + 1, my + 1, mz + 1, r, g, b, a, 0.0F, 0.0F, 0, 0, 0.0F, 0.0F, 0.0F);
+        buffer.vertex(mx + 1, my + 1, mz, r, g, b, a, 0.0F, 0.0F, 0, 0, 0.0F, 0.0F, 0.0F);
+        buffer.vertex(mx + 1, my + 1, mz + 1, r, g, b, a, 0.0F, 0.0F, 0, 0, 0.0F, 0.0F, 0.0F);
 
-        buffer.addVertex(mx, my + 1, mz, r, g, b, a, 0.0F, 0.0F, 0, 0, 0.0F, 0.0F, 0.0F);
-        buffer.addVertex(mx + 1, my + 1, mz, r, g, b, a, 0.0F, 0.0F, 0, 0, 0.0F, 0.0F, 0.0F);
+        buffer.vertex(mx, my + 1, mz, r, g, b, a, 0.0F, 0.0F, 0, 0, 0.0F, 0.0F, 0.0F);
+        buffer.vertex(mx + 1, my + 1, mz, r, g, b, a, 0.0F, 0.0F, 0, 0, 0.0F, 0.0F, 0.0F);
 
-        buffer.addVertex(mx, my + 1, mz + 1, r, g, b, a, 0.0F, 0.0F, 0, 0, 0.0F, 0.0F, 0.0F);
-        buffer.addVertex(mx + 1, my + 1, mz + 1, r, g, b, a, 0.0F, 0.0F, 0, 0, 0.0F, 0.0F, 0.0F);
+        buffer.vertex(mx, my + 1, mz + 1, r, g, b, a, 0.0F, 0.0F, 0, 0, 0.0F, 0.0F, 0.0F);
+        buffer.vertex(mx + 1, my + 1, mz + 1, r, g, b, a, 0.0F, 0.0F, 0, 0, 0.0F, 0.0F, 0.0F);
 
-        buffer.addVertex(mx, my, mz, r, g, b, a, 0.0F, 0.0F, 0, 0, 0.0F, 0.0F, 0.0F);
-        buffer.addVertex(mx, my + 1, mz, r, g, b, a, 0.0F, 0.0F, 0, 0, 0.0F, 0.0F, 0.0F);
+        buffer.vertex(mx, my, mz, r, g, b, a, 0.0F, 0.0F, 0, 0, 0.0F, 0.0F, 0.0F);
+        buffer.vertex(mx, my + 1, mz, r, g, b, a, 0.0F, 0.0F, 0, 0, 0.0F, 0.0F, 0.0F);
 
-        buffer.addVertex(mx + 1, my, mz, r, g, b, a, 0.0F, 0.0F, 0, 0, 0.0F, 0.0F, 0.0F);
-        buffer.addVertex(mx + 1, my + 1, mz, r, g, b, a, 0.0F, 0.0F, 0, 0, 0.0F, 0.0F, 0.0F);
+        buffer.vertex(mx + 1, my, mz, r, g, b, a, 0.0F, 0.0F, 0, 0, 0.0F, 0.0F, 0.0F);
+        buffer.vertex(mx + 1, my + 1, mz, r, g, b, a, 0.0F, 0.0F, 0, 0, 0.0F, 0.0F, 0.0F);
 
-        buffer.addVertex(mx, my, mz + 1, r, g, b, a, 0.0F, 0.0F, 0, 0, 0.0F, 0.0F, 0.0F);
-        buffer.addVertex(mx, my + 1, mz + 1, r, g, b, a, 0.0F, 0.0F, 0, 0, 0.0F, 0.0F, 0.0F);
+        buffer.vertex(mx, my, mz + 1, r, g, b, a, 0.0F, 0.0F, 0, 0, 0.0F, 0.0F, 0.0F);
+        buffer.vertex(mx, my + 1, mz + 1, r, g, b, a, 0.0F, 0.0F, 0, 0, 0.0F, 0.0F, 0.0F);
 
-        buffer.addVertex(mx + 1, my, mz + 1, r, g, b, a, 0.0F, 0.0F, 0, 0, 0.0F, 0.0F, 0.0F);
-        buffer.addVertex(mx + 1, my + 1, mz + 1, r, g, b, a, 0.0F, 0.0F, 0, 0, 0.0F, 0.0F, 0.0F);
+        buffer.vertex(mx + 1, my, mz + 1, r, g, b, a, 0.0F, 0.0F, 0, 0, 0.0F, 0.0F, 0.0F);
+        buffer.vertex(mx + 1, my + 1, mz + 1, r, g, b, a, 0.0F, 0.0F, 0, 0, 0.0F, 0.0F, 0.0F);
 
-        tessellator.draw();
+        tessellator.end();
 
         RenderSystem.enableTexture();
         RenderSystem.popMatrix();
@@ -118,14 +118,14 @@ public class ItemEnderLantern extends ItemBase {
         ArrayList<BlockPos> oreList = new ArrayList<>();
         Minecraft mc = Minecraft.getInstance();
         PlayerEntity player = mc.player;
-        BlockPos currentPos = new BlockPos(player.getPositionVec());
+        BlockPos currentPos = new BlockPos(player.position());
         int radius = Math.min(Config.COMMON.lanternMax.get(), Config.CLIENT.lanternRange.get());
         if (radius == 0) radius = 4;
         for (int x = currentPos.getX() - radius; x < currentPos.getX() + radius; x++) {
             for (int y = currentPos.getY() - radius; y < currentPos.getY() + radius; y++) {
                 for (int z = currentPos.getZ() - radius; z < currentPos.getZ() + radius; z++) {
-                    Block testBlock = mc.world.getBlockState(new BlockPos(x, y, z)).getBlock();
-                    String name = testBlock.getTranslationKey();
+                    Block testBlock = mc.level.getBlockState(new BlockPos(x, y, z)).getBlock();
+                    String name = testBlock.getDescriptionId();
                     if (name.toLowerCase().contains("ore") || name.toLowerCase().equals("tile.netherquartz"))
                         oreList.add(new BlockPos(x, y, z));
                 }

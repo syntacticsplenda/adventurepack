@@ -24,7 +24,7 @@ public final class ModBlocks {
     @SubscribeEvent
     public static void registerBlocks(RegistryEvent.Register<Block> evt) {
         IForgeRegistry<Block> registry = evt.getRegistry();
-        registry.register(new BlockLight(Block.Properties.create(Material.AIR).setLightLevel((x) -> 15)).setRegistryName(AdventurePack.modId, "block_light"));
+        registry.register(new BlockLight(Block.Properties.of(Material.AIR).lightLevel((x) -> 15)).setRegistryName(AdventurePack.modId, "block_light"));
     }
 
     @SubscribeEvent
@@ -37,7 +37,7 @@ public final class ModBlocks {
     @SubscribeEvent
     public static void registerTileEntities(RegistryEvent.Register<TileEntityType<?>> evt) {
         IForgeRegistry<TileEntityType<?>> registry = evt.getRegistry();
-        registry.register(TileEntityType.Builder.create(TileEntityLight::new, blockLight).build(null).setRegistryName(AdventurePack.modId, "tile_entity_light"));
+        registry.register(TileEntityType.Builder.of(TileEntityLight::new, blockLight).build(null).setRegistryName(AdventurePack.modId, "tile_entity_light"));
     }
 
 }

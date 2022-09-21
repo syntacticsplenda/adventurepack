@@ -7,7 +7,6 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.world.World;
 
-
 public class ItemFlashlight extends ItemBase implements ILightProducing {
 
     public ItemFlashlight(Properties properties) {
@@ -20,12 +19,12 @@ public class ItemFlashlight extends ItemBase implements ILightProducing {
             return;
         }
         PlayerEntity player = (PlayerEntity) entity;
-        if (!(player.getHeldItemMainhand() == itemStack) && !(player.getHeldItemOffhand() == itemStack)) return;
+        if (!(player.getMainHandItem() == itemStack) && !(player.getOffhandItem() == itemStack)) return;
         createLight(itemStack, world, player);
     }
 
     @Override
-    public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn) {
+    public ActionResult<ItemStack> use(World worldIn, PlayerEntity playerIn, Hand handIn) {
         return toggleLight(playerIn, handIn);
     }
 

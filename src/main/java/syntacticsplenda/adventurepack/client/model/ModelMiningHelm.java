@@ -41,10 +41,10 @@ public class ModelMiningHelm extends BipedModel {
 
         MiningHelmet = new ModelRenderer(this);
 
-        textureWidth = 64;
-        textureHeight = 64;
+        texWidth = 64;
+        texHeight = 64;
 
-        MiningHelmet.setRotationPoint(0F, -6F, 0F);
+        MiningHelmet.setPos(0F, -6F, 0F);
         setRotation(MiningHelmet, 0F, 0F, 0F);
         MiningHelmet.mirror = true;
         MiningHelmet.addChild(Piece1);
@@ -55,15 +55,15 @@ public class ModelMiningHelm extends BipedModel {
         MiningHelmet.addChild(Piece6);
         MiningHelmet.addChild(Piece7);
         MiningHelmet.addChild(Piece8);
-        MiningHelmet.setTextureSize(textureWidth, textureHeight);
+        MiningHelmet.setTexSize(texWidth, texHeight);
 
-        this.bipedHead.addChild(MiningHelmet);
+        this.head.addChild(MiningHelmet);
     }
 
     private void setRotation(ModelRenderer model, float x, float y, float z) {
-        model.rotateAngleX = x;
-        model.rotateAngleY = y;
-        model.rotateAngleZ = z;
+        model.xRot = x;
+        model.yRot = y;
+        model.zRot = z;
     }
 
 }

@@ -36,10 +36,10 @@ public class ModItems {
 
     // thanks botania for these
     public static Item.Properties defaultBuilder() {
-        return new Item.Properties().group(AdventurePack.ADVENTURE_PACK);
+        return new Item.Properties().tab(AdventurePack.ADVENTURE_PACK);
     }
 
     private static Item.Properties unstackable() {
-        return defaultBuilder().maxStackSize(1);
+        return defaultBuilder().stacksTo(1);
     }
 }

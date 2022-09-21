@@ -27,7 +27,7 @@ public class BlockLight extends BlockBase {
     }
 
     @Override
-    public BlockRenderType getRenderType(BlockState state) {
+    public BlockRenderType getRenderShape(BlockState state) {
         return BlockRenderType.INVISIBLE;
     }
 

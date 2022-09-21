@@ -46,10 +46,10 @@ public class ModelExplorerHat extends BipedModel {
 
         ExplorerHat = new ModelRenderer(this);
 
-        textureWidth = 64;
-        textureHeight = 64;
+        texWidth = 64;
+        texHeight = 64;
 
-        ExplorerHat.setRotationPoint(0F, -6F, 0F);
+        ExplorerHat.setPos(0F, -6F, 0F);
         setRotation(ExplorerHat, 0F, 0F, 0F);
         ExplorerHat.mirror = true;
         ExplorerHat.addChild(Piece1);
@@ -62,15 +62,15 @@ public class ModelExplorerHat extends BipedModel {
         ExplorerHat.addChild(Piece8);
         ExplorerHat.addChild(Piece9);
         ExplorerHat.addChild(Piece10);
-        ExplorerHat.setTextureSize(textureWidth, textureHeight);
+        ExplorerHat.setTexSize(texWidth, texHeight);
 
-        this.bipedHead.addChild(ExplorerHat);
+        this.head.addChild(ExplorerHat);
     }
 
     private void setRotation(ModelRenderer model, float x, float y, float z) {
-        model.rotateAngleX = x;
-        model.rotateAngleY = y;
-        model.rotateAngleZ = z;
+        model.xRot = x;
+        model.yRot = y;
+        model.zRot = z;
     }
 
 }

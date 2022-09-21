@@ -56,10 +56,10 @@ public class ModelCowboyHat extends BipedModel {
 
         CowboyHat = new ModelRenderer(this);
 
-        textureWidth = 64;
-        textureHeight = 64;
+        texWidth = 64;
+        texHeight = 64;
 
-        CowboyHat.setRotationPoint(0F, -6F, 0F);
+        CowboyHat.setPos(0F, -6F, 0F);
         setRotation(CowboyHat, 0F, 0F, 0F);
         CowboyHat.mirror = true;
         CowboyHat.addChild(Piece1);
@@ -75,15 +75,15 @@ public class ModelCowboyHat extends BipedModel {
         CowboyHat.addChild(Piece11);
         CowboyHat.addChild(Piece12);
         CowboyHat.addChild(Piece13);
-        CowboyHat.setTextureSize(textureWidth, textureHeight);
+        CowboyHat.setTexSize(texWidth, texHeight);
 
-        this.bipedHead.addChild(CowboyHat);
+        this.head.addChild(CowboyHat);
     }
 
     private void setRotation(ModelRenderer model, float x, float y, float z) {
-        model.rotateAngleX = x;
-        model.rotateAngleY = y;
-        model.rotateAngleZ = z;
+        model.xRot = x;
+        model.yRot = y;
+        model.zRot = z;
     }
 
 }
